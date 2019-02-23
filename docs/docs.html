@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>nlptools</title>
+</head>
+<body>
+    <div class="sidebar">
+        <h2><a href="#utility">基础工具 (utility)</a></h2>
+        <ul>
+            <li><a href="#read_file">read_file</a></li>
+            <li><a href="#write_file">write_file</a></li>
+            <li><a href="#concat_file">concat_file</a></li>
+            <li><a href="#read_json">read_json</a></li>
+            <li><a href="#write_json">write_json</a></li>
+            <li><a href="#mkdir">mkdir</a></li>
+            <li><a href="#rmdir">rmdir</a></li>
+            <li><a href="#rmfile">rmfile</a></li>
+            <li><a href="#file_tail">file_tail</a></li>
+            <li><a href="#file_uniq">file_uniq</a></li>
+
+            <li><a href="#is_int">is_int</a></li>
+            <li><a href="#is_float">is_float</a></li>
+            <li><a href="#is_email">is_email</a></li>
+            <li><a href="#verify">verify</a></li>
+            <li><a href="#verify_page">verify_page</a></li>
+
+            <li><a href="#now">now</a></li>
+            <li><a href="#timestamp">timestamp</a></li>
+            <li><a href="#datetime2string">datetime2string</a></li>
+            <li><a href="#string2datetime">string2datetime</a></li>
+            <li><a href="#datetime_add">datetime_add</a></li>
+
+            <li><a href="#get">get</a></li>
+            <li><a href="#post">post</a></li>
+        </ul>
+        <h2><a href="#collection">数据采集 (collection)</a></h2>
+        <ul>
+            <li><a href="#ArticleCrawler">ArticleCrawler</a></li>
+        </ul>
+        <h2><a href="#analysis">数据分析 (analysis)</a></h2>
+        <ul>
+            <li><a href="#contains">contains</a></li>
+            <li><a href="#not_contains">not_contains</a></li>
+            <li><a href="#FreqDist">FreqDist</a></li>
+            <li><a href="#extract_words">extract_words</a></li>
+            <li><a href="#discovery_new_words">discovery_new_words</a></li>
+        </ul>
+        <h2><a href="#processing">数据预处理 (processing)</a></h2>
+        <ul>
+            <li><a href="#trad2simp">trad2simp</a></li>
+            <li><a href="#full2half">full2half</a></li>
+            <li><a href="#check_cleaning">check_cleaning</a></li>
+            <li><a href="#check_stock_cleaning">check_stock_cleaning</a></li>
+            <li><a href="#class_cleaning">class_cleaning</a></li>
+            <li><a href="#syn_cleaning">syn_cleaning</a></li>
+            <li><a href="#load_rule_dict">load_rule_dict</a></li>
+            <li><a href="#load_rule_pick_dict">load_rule_pick_dict</a></li>
+            <li><a href="#rule_some_cleaning">rule_some_cleaning</a></li>
+            <li><a href="#rule_every_cleaning">rule_every_cleaning</a></li>
+            <li><a href="#rule_pick_cleaning">rule_pick_cleaning</a></li>
+            <li><a href="#rule_extend_cleaning">rule_extend_cleaning</a></li>
+        </ul>
+        <h2><a href="#feature">特征提取 (feature)</a></h2>
+        <ul>
+            <li><a href="#extract_feature">extract_feature</a></li>
+            <li><a href="#apply_feature">apply_feature</a></li>
+        </ul>
+    </div>
+    <div class="main markdown-body">
+        <h1>nlptools</h1>
+
+        <h2 id="utility">基础工具 (utility)</h2>
+
+        <h2 id="collection">数据采集 (collection)</h2>
+
+        <h2 id="analysis">数据分析 (analysis)</h2>
+
+        <h3>contains</h3>
+        <p>contains(dest, src, dest_in_dict=False, case_sensitive=False)</p>
+        <p>源文件有的并且目标文件也有的数据</p>
+        <h4>参数</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>名称</th>
+              <th>说明</th>
+              <th>类型</th>
+              <th>默认值</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>dest</td>
+              <td>目标文件</td>
+              <td>str | list</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>src</td>
+              <td>源文件</td>
+              <td>str</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>dest_in_dict</td>
+              <td>目标文件是否在 dict 目录</td>
+              <td>bool</td>
+              <td>False</td>
+            </tr>
+            <tr>
+              <td>case_sensitive</td>
+              <td>是否区分大小写</td>
+              <td>bool</td>
+              <td>False</td>
+            </tr>
+          </tbody>
+        </table>
+        <h4>用法</h4>
+        <pre><code>import nlptools
+nlptools.contains("a.txt", "b.txt")</code></pre>
+
+        <h2 id="processing">数据预处理 (processing)</h2>
+
+        <h2 id="feature">特征提取 (feature)</h2>
+    </div>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        a {
+            text-decoration: none;
+            color: #333;
+        }
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: 100%;
+        }
+        body {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+        }
+        .main {
+            padding: 10px;
+            margin-left: 300px;
+        }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 300px;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow-y: scroll;
+        }
+        .sidebar ul {
+          padding-left: 2em;
+        }
+        .markdown-body {
+        -ms-text-size-adjust: 100%;
+        -webkit-text-size-adjust: 100%;
+        color: #333;
+        overflow: hidden;
+        font-family: "Microsoft YaHei", Helvetica, "Meiryo UI", "Malgun Gothic", "Segoe UI", "Trebuchet MS", "Monaco", monospace, Tahoma, STXihei, "华文细黑", STHeiti, "Helvetica Neue", "Droid Sans", "wenquanyi micro hei", FreeSans, Arimo, Arial, SimSun, "宋体", Heiti, "黑体", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        word-wrap: break-word;
+        }
+        .markdown-body a {
+        background: transparent;
+        }
+        .markdown-body a:active,
+        .markdown-body a:hover {
+        outline: 0;
+        }
+        .markdown-body strong {
+        font-weight: bold;
+        }
+        .markdown-body h1 {
+        font-size: 2em;
+        margin: 0.67em 0;
+        }
+        .markdown-body img {
+        border: 0;
+        }
+        .markdown-body hr {
+        -moz-box-sizing: content-box;
+        box-sizing: content-box;
+        height: 0;
+        }
+        .markdown-body pre {
+        overflow: auto;
+        }
+        .markdown-body code,
+        .markdown-body kbd,
+        .markdown-body pre {
+        font-family: "Meiryo UI", "YaHei Consolas Hybrid", Consolas, "Malgun Gothic", "Segoe UI", "Trebuchet MS", Helvetica, monospace, monospace;
+        font-size: 1em;
+        }
+        .markdown-body table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        }
+        .markdown-body td,
+        .markdown-body th {
+        padding: 0;
+        }
+        .markdown-body * {
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        }
+        .markdown-body a {
+        color: #4183c4;
+        text-decoration: none;
+        }
+        .markdown-body a:hover,
+        .markdown-body a:active {
+        text-decoration: underline;
+        }
+        .markdown-body hr {
+        height: 0;
+        margin: 15px 0;
+        overflow: hidden;
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid #ddd;
+        }
+        .markdown-body hr:before {
+        display: table;
+        content: "";
+        }
+        .markdown-body hr:after {
+        display: table;
+        clear: both;
+        content: "";
+        }
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3,
+        .markdown-body h4,
+        .markdown-body h5,
+        .markdown-body h6 {
+        margin-top: 15px;
+        margin-bottom: 15px;
+        line-height: 1.1;
+        }
+        .markdown-body h1 {
+        font-size: 30px;
+        }
+        .markdown-body h2 {
+        font-size: 21px;
+        }
+        .markdown-body h3 {
+        font-size: 16px;
+        }
+        .markdown-body h4 {
+        font-size: 14px;
+        }
+        .markdown-body h5 {
+        font-size: 12px;
+        }
+        .markdown-body h6 {
+        font-size: 11px;
+        }
+        .markdown-body blockquote {
+        margin: 0;
+        }
+        .markdown-body ul,
+        .markdown-body ol {
+        padding: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        }
+        .markdown-body ol ol,
+        .markdown-body ul ol {
+        list-style-type: lower-roman;
+        }
+        .markdown-body ul ul ol,
+        .markdown-body ul ol ol,
+        .markdown-body ol ul ol,
+        .markdown-body ol ol ol {
+        list-style-type: lower-alpha;
+        }
+        .markdown-body dd {
+        margin-left: 0;
+        }
+        .markdown-body code {
+        font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        font-size: 12px;
+        }
+        .markdown-body pre {
+        margin-top: 0;
+        margin-bottom: 0;
+        font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+        .markdown-body > *:first-child {
+        margin-top: 0 !important;
+        }
+        .markdown-body > *:last-child {
+        margin-bottom: 0 !important;
+        }
+        .markdown-body h1,
+        .markdown-body h2,
+        .markdown-body h3,
+        .markdown-body h4,
+        .markdown-body h5,
+        .markdown-body h6 {
+        position: relative;
+        margin-top: 1em;
+        margin-bottom: 16px;
+        font-weight: bold;
+        line-height: 1.4;
+        }
+        .markdown-body h1 {
+        padding-bottom: 0.3em;
+        font-size: 2.25em;
+        line-height: 1.2;
+        border-bottom: 1px solid #eee;
+        }
+        .markdown-body h2 {
+        padding-bottom: 0.3em;
+        font-size: 1.75em;
+        line-height: 1.225;
+        border-bottom: 1px solid #eee;
+        }
+        .markdown-body h3 {
+        font-size: 1.5em;
+        line-height: 1.43;
+        }
+        .markdown-body h4 {
+        font-size: 1.25em;
+        }
+        .markdown-body h5 {
+        font-size: 1em;
+        }
+        .markdown-body h6 {
+        font-size: 1em;
+        color: #777;
+        }
+        .markdown-body p,
+        .markdown-body blockquote,
+        .markdown-body ul,
+        .markdown-body ol,
+        .markdown-body dl,
+        .markdown-body table,
+        .markdown-body pre {
+        margin-top: 0;
+        margin-bottom: 16px;
+        }
+        .markdown-body ul,
+        .markdown-body ol {
+        padding-left: 2em;
+        }
+        .markdown-body ul ul,
+        .markdown-body ul ol,
+        .markdown-body ol ol,
+        .markdown-body ol ul {
+        margin-top: 0;
+        margin-bottom: 0;
+        }
+        .markdown-body li > p {
+        margin-top: 16px;
+        }
+        .markdown-body dl {
+        padding: 0;
+        }
+        .markdown-body dl dt {
+        padding: 0;
+        margin-top: 16px;
+        font-size: 1em;
+        font-style: italic;
+        font-weight: bold;
+        }
+        .markdown-body dl dd {
+        padding: 0 16px;
+        margin-bottom: 16px;
+        }
+        .markdown-body blockquote {
+        padding: 0 15px;
+        color: #777;
+        border-left: 4px solid #ddd;
+        }
+        .markdown-body blockquote > :first-child {
+        margin-top: 0;
+        }
+        .markdown-body blockquote > :last-child {
+        margin-bottom: 0;
+        }
+        .markdown-body table {
+        display: block;
+        width: 100%;
+        overflow: auto;
+        word-break: normal;
+        word-break: keep-all;
+        }
+        .markdown-body table th {
+        font-weight: bold;
+        }
+        .markdown-body table th,
+        .markdown-body table td {
+        padding: 6px 13px;
+        border: 1px solid #ddd;
+        }
+        .markdown-body table tr {
+        background-color: #fff;
+        border-top: 1px solid #ccc;
+        }
+        .markdown-body table tr:nth-child(2n) {
+        background-color: #f8f8f8;
+        }
+        .markdown-body img {
+        max-width: 100%;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        }
+        .markdown-body code {
+        padding: 0;
+        padding-top: 0.2em;
+        padding-bottom: 0.2em;
+        margin: 0;
+        font-size: 85%;
+        background-color: rgba(0, 0, 0, 0.04);
+        border-radius: 3px;
+        }
+        .markdown-body code:before,
+        .markdown-body code:after {
+        letter-spacing: -0.2em;
+        content: "\00a0";
+        }
+        .markdown-body pre > code {
+        padding: 0;
+        margin: 0;
+        font-size: 100%;
+        word-break: normal;
+        white-space: pre;
+        background: transparent;
+        border: 0;
+        }
+        .markdown-body pre {
+        padding: 16px;
+        overflow: auto;
+        font-size: 85%;
+        line-height: 1.45;
+        background-color: #f7f7f7;
+        border-radius: 3px;
+        }
+        .markdown-body pre {
+        word-wrap: normal;
+        }
+        .markdown-body pre code {
+        display: inline;
+        max-width: initial;
+        padding: 0;
+        margin: 0;
+        overflow: initial;
+        line-height: inherit;
+        word-wrap: normal;
+        background-color: transparent;
+        border: 0;
+        }
+        .markdown-body pre code:before,
+        .markdown-body pre code:after {
+        content: normal;
+        }
+    </style>
+</body>
+</html>
