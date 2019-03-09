@@ -1,3 +1,0 @@
-不能绑定支付宝primaryalipay 不能绑定支付宝
-绑定支付宝后primaryalipay 绑定支付宝后
-支付宝绑定了primaryalipay 支付宝绑定了
