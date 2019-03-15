@@ -2,6 +2,7 @@
 
 import os
 import time
+from pathlib import Path
 
 from .fs import read_json
 from .fs import write_json
@@ -9,33 +10,25 @@ from .fs import mkdir
 from .http import fetch
 
 
-DEFAULT_POST_CONTENT_TYPE = "application/x-www-form-urlencoded;charset=utf-8"
-
-clear_text_rules = [
-    (" ", "&nbsp;")
-]
-
-
 class Crawler(object):
     def __init__(
             self,
             timeout=3,
             timesleep=3,
-            data_dir="data"):
-
+            data_path="data"):
         self.timeout = timeout
         self.timesleep = timesleep
-        self.data_dir = data_dir
+        self.data_path = data_path
 
-        mkdir(data_dir)
+        self.mk_data_dir()
 
-    @staticmethod
-    def clear_text(text):
-        u"""清除文本"""
-        for item in clear_text_rules:
-            text = text.replace(item[1], item[0])
+    def mk_data_dir(self):
+        u"""创建数据目录"""
+        mkdir(self.data_path)
 
-        return text
+    def sleep(self):
+        u"""暂停片刻"""
+        time.sleep(self.timesleep)
 
     @staticmethod
     def clear_tag(root_elem, tag_name):
@@ -54,136 +47,108 @@ class ArticleCrawler(Crawler):
             self,
             timeout=3,
             timesleep=3,
-            data_dir="data",
-
+            data_path="data",
             list_method="GET",
-            list_req_type=None,
-            list_res_type=None,
-            list_content_type=DEFAULT_POST_CONTENT_TYPE,
-            list_user_agent=None,
-            list_referer=None,
-
+            list_headers={},
+            list_data_type=None,
             content_method="GET",
-            content_req_type=None,
-            content_res_type=None,
-            content_content_type=DEFAULT_POST_CONTENT_TYPE,
-            content_user_agent=None,
-            content_referer=None):
+            content_headers={},
+            content_data_type=None):
         super().__init__(
             timeout=timeout,
             timesleep=timesleep,
-            data_dir=data_dir)
+            data_path=data_path)
 
         self.list_method = list_method
-        self.list_req_type = list_req_type
-        self.list_res_type = list_res_type
-        self.list_content_type = list_content_type
-        self.list_user_agent = list_user_agent
-        self.list_referer = list_referer
+        self.list_headers = list_headers
+        self.list_data_type = list_data_type
 
         self.content_method = content_method
-        self.content_req_type = content_req_type
-        self.content_res_type = content_res_type
-        self.content_content_type = content_content_type
-        self.content_user_agent = content_user_agent
-        self.content_referer = content_referer
+        self.content_headers = content_headers
+        self.content_data_type = content_data_type
 
     @staticmethod
-    def get_page_indexes(min_page, max_page):
+    def get_list_pages(min_page, max_page):
+        u"""获取列表页的分页"""
         return range(min_page, max_page + 1)
 
-    def get_page_links(self, pages):
+    def get_list_links(self, pages):
+        u"""获取列表页的地址"""
         raise NotImplementedError()
 
-    def get_page_files(self, pages):
+    def get_data_files(self, pages=None):
+        u"""获取数据目录的文件"""
         files = []
+
+        if pages is None:
+            pages = os.listdir(self.data_path)
+
         for page in pages:
-            file = "%s/%d.json" % (self.data_dir, page)
-            if os.path.exists(file):
+            page = page.split(".")[0]
+            file = "{}/{}.json".format(self.data_path, page)
+            if Path(file).is_file():
                 files.append(file)
+
         return files
 
-    def parse_list_html(self, html_doc):
+    def parse_list(self, result):
+        u"""解析列表"""
         raise NotImplementedError()
 
-    def parse_content_html(self, html_doc):
+    def parse_content(self, result):
+        u"""解析内容"""
         raise NotImplementedError()
-
-    def parse_list_json(self, json_data):
-        raise NotImplementedError()
-
-    def parse_content_json(self, json_data):
-        raise NotImplementedError()
-
-    def request_list_data(self, link):
-        result = fetch(
-            link,
-            method=self.list_method,
-            req_type=self.list_req_type,
-            res_type=self.list_res_type,
-            timeout=self.timeout,
-            content_type=self.list_content_type,
-            user_agent=self.list_user_agent,
-            referer=self.list_referer)
-
-        if result is None:
-            return []
-        else:
-            if self.list_res_type == "json":
-                return self.parse_list_json(result)
-            else:
-                result = self.clear_text(result)
-                return self.parse_list_html(result)
-
-    def request_content_data(self, link):
-        result = fetch(
-            link,
-            method=self.content_method,
-            req_type=self.content_req_type,
-            res_type=self.content_res_type,
-            timeout=self.timeout,
-            content_type=self.content_content_type,
-            user_agent=self.content_user_agent,
-            referer=self.content_referer)
-
-        if result is None:
-            return ""
-        else:
-            if self.content_res_type == "json":
-                return self.parse_content_json(result)
-            else:
-                result = self.clear_text(result)
-                return self.parse_content_html(result)
 
     def get_list_data(self, min_page, max_page):
-        pages = self.get_page_indexes(min_page, max_page)
-        links = self.get_page_links(pages)
+        u"""获取列表页的数据"""
+        pages = self.get_list_pages(min_page, max_page)
+        links = self.get_list_links(pages)
 
-        for i, page in enumerate(pages):
+        for i in range(len(pages)):
+            page = pages[i]
             link = links[i]
-            print(link)
 
-            result = self.request_list_data(link)
+            print("requesting list {} {}".format(i, link))
+
+            result = fetch(
+                link,
+                headers=self.list_headers,
+                timeout=self.timeout,
+                method=self.list_method,
+                data_type=self.list_data_type)
 
             if result:
                 write_json(
-                    "%s/%d.json" % (self.data_dir, page),
-                    {"data": result})
+                    "{}/{}.json".format(self.data_path, page),
+                    {"data": self.parse_list(result)})
 
-            time.sleep(self.timesleep)
+            self.sleep()
 
     def get_content_data(self, min_page, max_page):
-        pages = self.get_page_indexes(min_page, max_page)
-        files = self.get_page_files(pages)
+        u"""获取内容页的数据"""
+        pages = self.get_list_pages(min_page, max_page)
+        files = self.get_data_files(pages)
 
-        for file in files:
+        for i in range(len(files)):
+            file = files[i]
             data = read_json(file)
-            for item in data["data"]:
-                link = item["link"]
-                if item["content"] == "":
-                    print(link)
-                    content = self.request_content_data(link)
-                    item["content"] = content
-                    write_json(file, data)
 
-                    time.sleep(self.timesleep)
+            for j in range(len(data["data"])):
+                item = data["data"][j]
+                link = item["link"]
+
+                if item["content"] == "":
+                    print("requesting content {}-{} {}".format(i, j, link))
+
+                    result = fetch(
+                        link,
+                        headers=self.content_headers,
+                        timeout=self.timeout,
+                        method=self.content_method,
+                        data_type=self.content_data_type)
+
+                    if result:
+                        item["content"] = self.parse_content(result)
+                        write_json(file, data)
+
+                    self.sleep()

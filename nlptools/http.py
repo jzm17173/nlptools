@@ -19,6 +19,10 @@ def _decode(result):
         return None
 
 
+def serialize(data):
+    return parse.urlencode(list(data.items()))
+
+
 def get(
         url,
         data=None,
@@ -26,7 +30,7 @@ def get(
         timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
     u"""get 请求"""
     if data is not None:
-        search = parse.urlencode(list(data.items()))
+        search = serialize(data)
         url = "{}?{}".format(url, search)
 
     req = request.Request(url, data=None, headers=headers)
@@ -58,7 +62,7 @@ def post(
     content_type = None
 
     if data is not None:
-        body = parse.urlencode(list(data.items()))
+        body = serialize(data)
     elif json is not None:
         body = json2.dumps(data)
         content_type = "application/json"
