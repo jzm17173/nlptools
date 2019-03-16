@@ -1,17 +1,11 @@
 # -*- coding:utf-8 -*-
 
+from pathlib import Path
 from collections import Counter
-u"""Counter
 
-class Counter(builtins.dict)
-
-c = Counter('abcdeabcdabcaba')
-c.most_common(3)
-
-Methods inherited from builtins.dict
-    items
-    keys
-"""
+from .fs import read_file
+from .fs import write_file
+from .fs import file_tail
 
 
 _rule_dict = {
@@ -75,3 +69,49 @@ class FreqDist(Counter):
             item
             for item in self.most_common()
             if _rule_dict[rule_type](item[1], rule_value)]
+
+
+def diff(dest, src, case_sensitive=False):
+    u"""源文件在目标文件中有的和没有的
+
+    Args:
+        dest: 目标文件
+        src: 源文件
+        case_sensitive: 是否区分大小写
+    """
+    if not isinstance(dest, list):
+        dest = [dest]
+
+    if len([item for item in dest if Path(item).is_file()]) != len(dest):
+        raise Exception("有目标文件不存在")
+
+    if not Path(src).is_file():
+        raise Exception("源文件不存在")
+
+    dest_data = []
+    for item in dest:
+        dest_data.extend(read_file(item).split("\n"))
+
+    src_data = read_file(src).split("\n")
+
+    src_data = [item.strip() for item in src_data if item.strip() != ""]
+    dest_data = [item.strip() for item in dest_data if item.strip() != ""]
+
+    if not case_sensitive:
+        src_data = [item.lower() for item in src_data]
+        dest_data = [item.lower() for item in dest_data]
+
+    dest_data = set(dest_data)
+
+    contains_data = []
+    notcontains_data = []
+    for item in src_data:
+        if item in dest_data:
+            contains_data.append(item)
+        else:
+            notcontains_data.append(item)
+
+    write_file(
+        file_tail(src, tail="_contains"), "\n".join(contains_data))
+    write_file(
+        file_tail(src, tail="_notcontains"), "\n".join(notcontains_data))

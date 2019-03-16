@@ -46,13 +46,18 @@ from .utils import clean_text
 from .utils import clean_word
 from .utils import generate_name
 
-from .fullhalf import full2half
+# 数据
+from .crawler import ArticleCrawler
 
-from .freq_dist import FreqDist
+# 分析
+from .analyzer import FreqDist
+from .analyzer import diff
 
-from .syn import syn_cleaning
+# 预处理
+from .preprocessing import syn_cleaning
+from .preprocessing import class_cleaning
+from .preprocessing import full2half
 
+# 修复
 from .correcter import typos_cleaning
 from .correcter import stock_cleaning
-
-from .crawler import ArticleCrawler

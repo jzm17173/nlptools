@@ -33,9 +33,13 @@ def demo_freq_dist():
     print(dist.filter("less_than_or_equal[2]"))  # [('d', 2), ('e', 1)]
     print(dist.filter("equal[2]"))  # [('d', 2)]
 
-
     print(list(dist.keys()))
     print("".join(dist.keys()))
 
 
+def demo_diff():
+    nlptools.diff("files/diff1.txt", "files/diff2.txt")
+
+
 demo_freq_dist()
+demo_diff()

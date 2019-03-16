@@ -4,6 +4,7 @@ import os
 
 from .utils import load_syn_dict
 from .utils import clean_text
+from .utils import clean_word
 
 
 def _get_module_path(path):
@@ -41,3 +42,19 @@ def full2half(text):
 
     return "".join(new_text)
 """
+
+
+def syn_cleaning(text, syn_dict, mode="text"):
+    u"""同义词统一"""
+    if mode == "text":
+        return clean_text(text, syn_dict)
+    else:
+        return clean_word(text, syn_dict)
+
+
+def class_cleaning(word, class_dict):
+    u"""类别统一
+
+    比如：“600570”、“600571”替换为“股票”；“感冒”、“咳嗽”替换为“疾病”
+    """
+    return clean_word(word, class_dict, mode="set")
