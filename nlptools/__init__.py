@@ -61,6 +61,12 @@ from .analyzer import discovery_new_words
 from .preprocessing import syn_cleaning
 from .preprocessing import class_cleaning
 from .preprocessing import full2half
+from .preprocessing import load_rule_dict
+from .preprocessing import load_rule_pick_dict
+from .preprocessing import rule_every_cleaning
+from .preprocessing import rule_some_cleaning
+from .preprocessing import rule_pick_cleaning
+from .preprocessing import rule_extend_cleaning
 
 # 修复
 from .correcter import typos_cleaning
