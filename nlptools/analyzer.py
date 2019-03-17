@@ -195,7 +195,7 @@ def context_exists(sentence, context):
     return False
 
 
-def search(sentences, contexts, max_size=None):
+def search(sentences, contexts, max_size=None, result_file=None):
     u"""搜索"""
     if isinstance(sentences, str):
         sentences = load_data(sentences)
@@ -216,4 +216,64 @@ def search(sentences, contexts, max_size=None):
                     break
         text.extend(questions)
 
-    write_file("search{}.txt".format(generate_name()), "\n".join(text))
+    if result_file is None:
+        result_file = "{}_search.txt".format(generate_name())
+
+    write_file(result_file, "\n".join(text))
+
+
+def discovery_new_words(file, old_words, max_size=None, result_path=None):
+    sentences = load_data(file)
+
+    words = []
+    for item in sentences:
+        words.extend(item.split())
+
+    dist = FreqDist(words)
+    name = generate_name()
+
+    notcontains1_text = []
+    notcontainsn_text = []
+    contains_text = []
+
+    notcontains1_contexts = []
+    notcontainsn_contexts = []
+
+    for word, count in dist.most_common():
+        line = "{} {}".format(word, count)
+
+        if word not in old_words:
+            if len(word) == 1:
+                notcontains1_text.append(line)
+                notcontains1_contexts.append(word)
+            else:
+                notcontainsn_text.append(line)
+                notcontainsn_contexts.append(word)
+        else:
+            contains_text.append(line)
+
+    if result_path is None:
+        result_path = ""
+    else:
+        result_path = "{}/".format(result_path)
+
+    write_file(
+        "{}{}_newwords_notcontains1.txt".format(result_path, name),
+        "\n".join(notcontains1_text))
+    write_file(
+        "{}{}_newwords_notcontainsn.txt".format(result_path, name),
+        "\n".join(notcontainsn_text))
+    write_file(
+        "{}{}_newwords_contains.txt".format(result_path, name),
+        "\n".join(contains_text))
+
+    search(
+        sentences,
+        notcontains1_contexts,
+        max_size=max_size,
+        result_file="{}{}_search_notcontains1.txt".format(result_path, name))
+    search(
+        sentences,
+        notcontainsn_contexts,
+        max_size=max_size,
+        result_file="{}{}_search_notcontainsn.txt".format(result_path, name))

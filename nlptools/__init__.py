@@ -55,6 +55,7 @@ from .analyzer import FreqDist
 from .analyzer import diff
 from .analyzer import context_exists
 from .analyzer import search
+from .analyzer import discovery_new_words
 
 # 预处理
 from .preprocessing import syn_cleaning

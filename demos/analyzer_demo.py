@@ -41,5 +41,25 @@ def demo_diff():
     nlptools.diff("files/diff1.txt", "files/diff2.txt")
 
 
-demo_freq_dist()
-demo_diff()
+def demo_search():
+    nlptools.search(
+        "files/search_sentences.txt",
+        "files/search_contexts.txt",
+        max_size=5,
+        result_file="files/search_result.txt")
+
+
+def demo_discovery_new_words():
+    file = "files/newwords.txt"
+    old_words = nlptools.load_dict("files/builtin.txt", mode="set")
+    nlptools.discovery_new_words(
+        file,
+        old_words,
+        max_size=5,
+        result_path="files")
+
+
+# demo_freq_dist()
+# demo_diff()
+# demo_search()
+demo_discovery_new_words()
