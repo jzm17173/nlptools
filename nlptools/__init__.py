@@ -40,6 +40,7 @@ from .calc import num_div
 from .number import normalize_num
 from .number import pad_num
 
+from .utils import load_data
 from .utils import load_dict
 from .utils import load_syn_dict
 from .utils import clean_text
@@ -52,6 +53,8 @@ from .crawler import ArticleCrawler
 # 分析
 from .analyzer import FreqDist
 from .analyzer import diff
+from .analyzer import context_exists
+from .analyzer import search
 
 # 预处理
 from .preprocessing import syn_cleaning

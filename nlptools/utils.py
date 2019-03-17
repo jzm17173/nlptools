@@ -7,6 +7,18 @@ from .date import now
 from .date import timestamp
 
 
+def load_data(file):
+    u"""加载数据"""
+    text = read_file(file)
+
+    if text is None:
+        return []
+
+    lines = text.split("\n")
+
+    return [line.strip() for line in lines if line.strip() != ""]
+
+
 def load_dict(file, mode="list"):
     u"""加载词典
 
@@ -21,19 +33,7 @@ def load_dict(file, mode="list"):
         mode为set
         {"啊", "呀"}
     """
-    text = read_file(file)
-    if text is None:
-        if mode == "set":
-            return set()
-        else:
-            return []
-
-    words = text.split("\n")
-
-    words = [
-        word.strip()
-        for word in words
-        if word.strip() != ""]
+    words = load_data(file)
 
     if mode == "set":
         words = set(words)
@@ -56,28 +56,21 @@ def load_syn_dict(file, mode="list"):
         mode为set
         {"登录": {"登陆", "登入"}}
     """
-    text = read_file(file)
-    if text is None:
-        if mode == "set":
-            return {}
-        else:
-            return []
+    lines = load_data(file)
 
-    lines = text.split("\n")
     if mode == "set":
         syn_dict = {}
+
         for line in lines:
-            if line.strip() != "":
-                line_splited = line.split()
-                word = line_splited[0]
-                if word not in syn_dict:
-                    syn_dict[word] = set()
-                syn_dict[word] = syn_dict[word] | set(line_splited[1:])  # 有key重复的情况
+            line_splited = line.split()
+            word = line_splited[0]
+            if word not in syn_dict:
+                syn_dict[word] = set()
+            syn_dict[word] = syn_dict[word] | set(line_splited[1:])  # key重复会
     else:
         syn_dict = [
             line.split()
-            for line in lines
-            if line.strip() != ""]
+            for line in lines]
 
     return syn_dict
 

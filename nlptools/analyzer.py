@@ -6,6 +6,8 @@ from collections import Counter
 from .fs import read_file
 from .fs import write_file
 from .fs import file_tail
+from .utils import load_data
+from .utils import generate_name
 
 
 _rule_dict = {
@@ -115,3 +117,103 @@ def diff(dest, src, case_sensitive=False):
         file_tail(src, tail="_contains"), "\n".join(contains_data))
     write_file(
         file_tail(src, tail="_notcontains"), "\n".join(notcontains_data))
+
+
+def _every(sentence, rules):
+    u"""全匹配"""
+    result = True
+
+    for rule in rules:
+        word = rule.strip("^BE")
+        size = len(word)
+
+        index = sentence.find(word)
+        rword = sentence[-size:]
+
+        if rule[0] == "^":
+            if rule[1] == "B":
+                if index == 0:
+                    return False
+            elif rule[1] == "E":
+                if rword == word:
+                    return False
+            else:
+                if index != -1:
+                    return False
+        else:
+            if rule[0] == "B":
+                if index != 0:
+                    return False
+            elif rule[0] == "E":
+                if rword != word:
+                    return False
+            else:
+                if index == -1:
+                    return False
+
+    return result
+
+
+def context_exists(sentence, context):
+    u"""上下文判断
+
+    context
+
+    "召开方式&^只能选择|表决方式&^只能选择|相结合&^只能选择"
+
+    | 或
+    & 并
+    ^ 非
+    B 开头
+    E 结尾
+
+    第一层都是|
+    第二层都是&
+
+    解析过程：
+    [
+        "召开方式&^只能选择",
+        "表决方式&^只能选择",
+        "相结合&^只能选择"
+    ]
+
+    [
+        ["召开方式", "^只能选择"],
+        ["表决方式", "^只能选择"],
+        ["相结合", "^只能选择"]
+    ]
+    """
+    if context == "":
+        return True
+
+    rules = [item.split("&") for item in context.split("|")]
+
+    for item in rules:
+        if _every(sentence, item):
+            return True
+
+    return False
+
+
+def search(sentences, contexts, max_size=None):
+    u"""搜索"""
+    if isinstance(sentences, str):
+        sentences = load_data(sentences)
+
+    if isinstance(contexts, str):
+        contexts = load_data(contexts)
+
+    text = []
+
+    for context in contexts:
+        text.append("\n\n{}\n{}\n\n".format("-" * 30, context))
+        questions = []
+        for sentence in sentences:
+            if context_exists(sentence, context):
+                if max_size is None or len(questions) < max_size:
+                    questions.append("    {}".format(sentence))
+                else:
+                    break
+        text.extend(questions)
+
+    write_file("search{}.txt".format(generate_name()), "\n".join(text))
