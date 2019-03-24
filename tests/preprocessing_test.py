@@ -30,7 +30,11 @@ class TestPreprocessing(unittest.TestCase):
         self.assertEqual(class_cleaning("平安银行", class_dict), "银行")
 
     def test_full2half(self):
-        self.assertEqual(full2half("　"), " ")
+        self.assertEqual(
+            full2half('！＂＃＄％＆＇（）＊＋，－．／０１２３４５６７８９：；＜＝＞？＠ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ［＼］＾＿｀ａｂｃｄｅｆｇｈｉｊｋｌｍｎｏｐｑｒｓｔｕｖｗｘｙｚ｛｜｝～'),
+            '!"#$%&\'()*+,-./0123456789:;<=>?@abcdefghijklmnopqrstuvwxyz[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~')
+        self.assertEqual(
+            full2half('　'), ' ')
 
     def test_zhconvert(self):
         self.assertEqual(zhconvert("瀋陽市"), "沈阳市")

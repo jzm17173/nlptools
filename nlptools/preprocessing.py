@@ -1,14 +1,12 @@
 # -*- encoding=utf-8 -*-
 u"""不采用基础词典+用户扩展词典的方式，完全用户传入，调用包的时候不用总是等待"""
 
-import os
-
 from .utils import load_data
-from .utils import load_syn_dict
 from .utils import clean_text
 from .utils import clean_word
 from .analyzer import FreqDist
-from .zh import zh2hans
+from .lang import zh2hans
+from .lang import half2width
 
 
 _MAPS = {
@@ -16,25 +14,18 @@ _MAPS = {
 }
 
 
+"""
+import os
+
 def _get_module_path(path):
     return os.path.normpath(os.path.join(os.getcwd(),
                             os.path.dirname(__file__), path))
-
-
-def _load_fullhalf_dict(file):
-    u"""加载全角词典"""
-    fullhalf_dict = load_syn_dict(file)
-    fullhalf_dict.append([" ", "　"])  # 全角空格
-    return fullhalf_dict
-
-
-_dict_path = _get_module_path("dict")
-_fullhalf_dict = _load_fullhalf_dict("%s/fullhalf.txt" % _dict_path)
+"""
 
 
 def full2half(text):
     u"""全角(full-width)转半角(half-width)"""
-    return clean_text(text, _fullhalf_dict)
+    return clean_text(text, half2width)
 
 
 u"""
