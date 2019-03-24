@@ -8,6 +8,12 @@ from .utils import load_syn_dict
 from .utils import clean_text
 from .utils import clean_word
 from .analyzer import FreqDist
+from .zh import zh2hans
+
+
+_MAPS = {
+    "zh-hans": zh2hans
+}
 
 
 def _get_module_path(path):
@@ -45,6 +51,16 @@ def full2half(text):
 
     return "".join(new_text)
 """
+
+
+def zhconvert(string, to_encoding="zh-hans"):
+    u"""繁简转换"""
+    final = []
+
+    for char in string:
+        final.append(_MAPS[to_encoding].get(char, char))
+
+    return "".join(final)
 
 
 def syn_cleaning(text, syn_dict, mode="text"):

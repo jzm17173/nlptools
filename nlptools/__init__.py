@@ -61,6 +61,7 @@ from .analyzer import discovery_new_words
 from .preprocessing import syn_cleaning
 from .preprocessing import class_cleaning
 from .preprocessing import full2half
+from .preprocessing import zhconvert
 from .preprocessing import load_rule_dict
 from .preprocessing import load_rule_pick_dict
 from .preprocessing import rule_every_cleaning
