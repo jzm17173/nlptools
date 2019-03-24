@@ -66,4 +66,4 @@ def start_time():
 def get_delta():
     global _tend
     _tend = timestamp()
-    return "%.2fms" % (_tstart - _tend)
+    return "%.2fms" % (_tend - _tstart)

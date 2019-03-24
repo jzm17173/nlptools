@@ -28,22 +28,6 @@ def full2half(text):
     return clean_text(text, half2width)
 
 
-u"""
-def full2half(text):
-    new_text = []
-
-    for char in text:
-        code = ord(char)
-        if code == 12288:  # 全角空格
-            code = 32
-        elif code >= 65281 and code <= 65374:
-            code -= 65248
-        new_text.append(chr(code))
-
-    return "".join(new_text)
-"""
-
-
 def zhconvert(string, to_encoding="zh-hans"):
     u"""繁简转换"""
     final = []
