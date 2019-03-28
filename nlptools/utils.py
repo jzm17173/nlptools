@@ -22,16 +22,19 @@ def load_data(file):
 def load_dict(file, mode="list"):
     u"""加载词典
 
-    Args:
-        file: 文件
-        mode: 类型
+    Parameters
+    ----------
+    file : str
+        文件路径
+    mode : {"list", "set"}, optional, default="list"
+        类型
 
-    Returns:
-        mode为list
+    Returns
+    -------
+    {list, set}
         ["啊", "呀"]
-
-        mode为set
         {"啊", "呀"}
+
     """
     words = load_data(file)
 
@@ -44,16 +47,17 @@ def load_dict(file, mode="list"):
 def load_syn_dict(file, mode="list"):
     u"""加载替换词典
 
+    Parameters
+    ----------
+    file : str
+        文件路径
+    mode : {"list", "set"}, optional, default="list"
+        类型
 
-    Args:
-        file: 文件
-        list: 类型
-
-    Returns:
-        mode为list
+    Returns
+    -------
+    {list, set}
         [["登录", "登陆", "登入"]]
-
-        mode为set
         {"登录": {"登陆", "登入"}}
     """
     lines = load_data(file)

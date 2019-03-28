@@ -28,7 +28,19 @@ _message_format = {
 def is_int(value):
     u"""是否整型
 
+    Parameters
+    ----------
+    value : {int, float, str}
+        数值
+
+    Returns
+    -------
+    bool
+
+    Notes
+    -----
     str.isdigit() 是否只由数字组成，“-”、“.”也不包括
+
     """
     if _re_int.match(str(value)):
         return True
@@ -37,7 +49,18 @@ def is_int(value):
 
 
 def is_float(value):
-    u"""是否浮点型"""
+    u"""是否浮点型
+
+    Parameters
+    ----------
+    value : {int, float, str}
+        数值
+
+    Returns
+    -------
+    bool
+
+    """
     if _re_float.match(str(value)):
         return True
     else:
