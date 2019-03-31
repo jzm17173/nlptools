@@ -30,7 +30,7 @@ def is_int(value):
 
     Parameters
     ----------
-    value : {int, float, str}
+    value : str
         数值
 
     Returns
@@ -53,7 +53,7 @@ def is_float(value):
 
     Parameters
     ----------
-    value : {int, float, str}
+    value : str
         数值
 
     Returns
@@ -68,7 +68,18 @@ def is_float(value):
 
 
 def is_email(value):
-    u"""是否邮件"""
+    u"""是否邮件
+
+    Parameters
+    ----------
+    value : str
+        邮件地址
+
+    Returns
+    -------
+    bool
+
+    """
     if _re_email.match(str(value)):
         return True
     else:
@@ -76,7 +87,56 @@ def is_email(value):
 
 
 def verify(rules, message_format={}):
-    u"""验证"""
+    u"""验证
+
+    Parameters
+    ----------
+    rules : [{str : str}]
+        规则
+
+        name : str
+            字段名
+        rule : {
+            "required",
+            "valid_email",
+            "min_length[x]",
+            "max_length[x]",
+            "exact_length[x]",
+            "matches[x]",
+            "numeric",
+            "integer",
+            "greater_than_or_equal[x]",
+            "greater_than[x]",
+            "less_than_or_equal[x]",
+            "less_than[x]"}
+            字段规则，x 为比较的值
+        value : str
+            字段值
+    message_format : dict, optional, default={}
+        错误信息
+
+        默认的错误信息
+        {
+            "required": "{}不能为空",
+            "valid_email": "{}格式错误",
+            "min_length": "{}长度不能小于{}",
+            "max_length": "{}长度不能大于{}",
+            "exact_length": "{}长度不是{}",
+            "matches": "{}不一致",
+            "numeric": "{}不是数值",
+            "integer": "{}不是整数",
+            "greater_than_or_equal": "{}不能小于{}",
+            "greater_than": "{}不能小于等于{}",
+            "less_than_or_equal": "{}不能大于{}",
+            "less_than": "{}不能大于等于{}"
+        }
+
+    Returns
+    -------
+    {str, None}
+        返回错误信息或 None
+
+    """
     for item in rules:
         rule = item.get("rule")
         name = item.get("name")
@@ -142,7 +202,59 @@ def verify(rules, message_format={}):
 
 
 def verify_page(page, row, extend=None, message_format={}):
-    u"""验证分页"""
+    u"""验证分页
+
+    Parameters
+    ----------
+    page : int
+        页码
+    row : int
+        每页数据数
+    extend : [{str : str}]
+        扩展规则
+
+        name : str
+            字段名
+        rule : {
+            "required",
+            "valid_email",
+            "min_length[x]",
+            "max_length[x]",
+            "exact_length[x]",
+            "matches[x]",
+            "numeric",
+            "integer",
+            "greater_than_or_equal[x]",
+            "greater_than[x]",
+            "less_than_or_equal[x]",
+            "less_than[x]"}
+            字段规则，x 为比较的值
+        value : str
+            字段值
+    message_format : dict, optional, default={}
+        错误信息
+
+        默认的错误信息
+        {
+            "required": "{}不能为空",
+            "valid_email": "{}格式错误",
+            "min_length": "{}长度不能小于{}",
+            "max_length": "{}长度不能大于{}",
+            "exact_length": "{}长度不是{}",
+            "matches": "{}不一致",
+            "numeric": "{}不是数值",
+            "integer": "{}不是整数",
+            "greater_than_or_equal": "{}不能小于{}",
+            "greater_than": "{}不能小于等于{}",
+            "less_than_or_equal": "{}不能大于{}",
+            "less_than": "{}不能大于等于{}"
+        }
+
+    Returns
+    {str, None}
+
+    -------
+    """
     rules = [
         {
             "name": "page",

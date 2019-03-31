@@ -7,6 +7,17 @@ from urllib import parse
 
 
 def _decode(result):
+    u"""解码
+
+    Parameters
+    ----------
+    result : bytes
+
+    Returns
+    -------
+    {str, None}
+
+    """
     try:
         return result.decode("utf-8")
     except Exception as e:
@@ -20,6 +31,17 @@ def _decode(result):
 
 
 def serialize(data):
+    u"""序列化提交的数据
+
+    Parameters
+    ----------
+    data : dict
+
+    Returns
+    -------
+    str
+
+    """
     return parse.urlencode(list(data.items()))
 
 
@@ -28,7 +50,24 @@ def get(
         data=None,
         headers={},
         timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
-    u"""get 请求"""
+    u"""get 请求
+
+    Parameters
+    ----------
+    url : str
+        请求地址
+    data : dict, optional, default=None
+        请求提交数据
+    headers : dict, optional, default={}
+        请求头部
+    timeout : int, optional, default=socket._GLOBAL_DEFAULT_TIMEOUT
+        请求超时
+
+    Returns
+    -------
+    {str, None}
+
+    """
     if data is not None:
         search = serialize(data)
         url = "{}?{}".format(url, search)
@@ -53,11 +92,30 @@ def post(
         timeout=socket._GLOBAL_DEFAULT_TIMEOUT):
     u"""post 请求
 
-    application/x-www-form-urlencoded;charset=utf-8
+    Parameters
+    ----------
+    url : str
+        请求地址
+    data : dict, optional, default=None
+        请求提交数据
+    json : dict, optional, default=None
+        请求提交数据，数据以json形式提交
+    headers : dict, optional, default={}
+        请求头部
+    timeout : int, optional, default=socket._GLOBAL_DEFAULT_TIMEOUT
+        请求超时
 
+    Returns
+    -------
+    {str, None}
+
+    Notes
+    -----
     Referer
     User-Agent
     Content-Type
+        application/x-www-form-urlencoded;charset=utf-8
+
     """
     content_type = None
 
@@ -92,7 +150,30 @@ def fetch(
         timeout=socket._GLOBAL_DEFAULT_TIMEOUT,
         method="GET",
         data_type=None):
-    u"""请求"""
+    u"""http 请求
+
+    Parameters
+    ----------
+    url : str
+        请求地址
+    data : dict, optional, default=None
+        请求提交数据
+    json : dict, optional, default=None
+        请求提交数据，数据以json形式提交
+    headers : dict, optional, default={}
+        请求头部
+    timeout : int, optional, default=socket._GLOBAL_DEFAULT_TIMEOUT
+        请求超时
+    method : {"GET", "POST"}, optional, default="GET"
+        请求方法
+    data_type : {"json", None}, optional, default=None
+        请求数据的类型
+
+    Returns
+    -------
+    {str, None}
+
+    """
     if method == "GET":
         result = get(
             url,

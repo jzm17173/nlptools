@@ -8,7 +8,18 @@ from .date import timestamp
 
 
 def load_data(file):
-    u"""加载数据"""
+    u"""加载数据
+
+    Parameters
+    ----------
+    file : str
+        文件路径
+
+    Returns
+    -------
+    list
+
+    """
     text = read_file(file)
 
     if text is None:
@@ -32,6 +43,7 @@ def load_dict(file, mode="list"):
     Returns
     -------
     {list, set}
+
         ["啊", "呀"]
         {"啊", "呀"}
 
@@ -56,9 +68,8 @@ def load_syn_dict(file, mode="list"):
 
     Returns
     -------
-    {list, set}
-        [["登录", "登陆", "登入"]]
-        {"登录": {"登陆", "登入"}}
+    {[[str]], {str : set}}
+
     """
     lines = load_data(file)
 
@@ -80,7 +91,20 @@ def load_syn_dict(file, mode="list"):
 
 
 def clean_text(text, word_dict):
-    u"""替换文档里的词"""
+    u"""替换文档里的词
+
+    Parameters
+    ----------
+    text : str
+        待替换的文本
+    word_dict : list
+        词典
+
+    Returns
+    -------
+    str
+
+    """
     for item in word_dict:
         new = item[0]
         for old in item[1:]:
@@ -92,6 +116,21 @@ def clean_text(text, word_dict):
 def clean_word(word, word_dict, mode="list"):
     u"""替换词
 
+    Parameters
+    ----------
+    word : str
+        待替换的词
+    word_dict : {list, dict}
+        词典
+    mode : {"list", "set"}, optional, default="list"
+        类型
+
+    Returns
+    -------
+    str
+
+    Notes
+    -----
     同一个词只会匹配一次
     """
     if mode == "set":
@@ -107,6 +146,18 @@ def clean_word(word, word_dict, mode="list"):
 
 
 def generate_name(mode="time"):
+    u"""命名
+
+    Parameters
+    ----------
+    mode : {"time", "uuid", "timestamp"}, optional, default="time"
+        类型
+
+    Returns
+    -------
+    str
+
+    """
     if mode == "uuid":
         return str(uuid.uuid1())
     elif mode == "timestamp":

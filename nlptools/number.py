@@ -15,7 +15,6 @@ def pad_num(num, digits):
     Returns
     -------
     str
-        补0后的数值
 
     """
     neg = "-" if num[0] == "-" else ""
@@ -40,7 +39,6 @@ def _remove_num_tail_zero(value):
     Returns
     -------
     str
-        移除末尾多余0后的数值
 
     """
     if "." in value:
@@ -65,7 +63,6 @@ def _remove_num_comma(value):
     Returns
     -------
     str
-        移除逗号后的数值
 
     """
     return value.replace(",", "")
@@ -82,7 +79,6 @@ def normalize_num(value):
     Returns
     -------
     str
-        标准化后的数值
 
     """
     value = _remove_num_comma(value)

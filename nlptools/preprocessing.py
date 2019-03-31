@@ -24,12 +24,36 @@ def _get_module_path(path):
 
 
 def full2half(text):
-    u"""全角(full-width)转半角(half-width)"""
+    u"""全角(full-width)转半角(half-width)
+
+    Parameters
+    ----------
+    text : str
+        待转换的文本
+
+    Returns
+    -------
+    str
+
+    """
     return clean_text(text, half2width)
 
 
 def zhconvert(string, to_encoding="zh-hans"):
-    u"""繁简转换"""
+    u"""繁简转换
+
+    Parameters
+    ----------
+    string : str
+        待转换的文本
+    to_encoding : {"zh-hans"}, optional, default="zh-hans"
+        转换类型
+
+    Returns
+    -------
+    str
+
+    """
     final = []
 
     for char in string:
@@ -39,7 +63,22 @@ def zhconvert(string, to_encoding="zh-hans"):
 
 
 def syn_cleaning(text, syn_dict, mode="text"):
-    u"""同义词统一"""
+    u"""同义词统一
+
+    Parameters
+    ----------
+    text : str
+        待转换的文本
+    syn_dict : [[str]]
+        同义词词典
+    mode : {"text", "word"}, optional, default="text"
+        转换类型
+
+    Returns
+    -------
+    str
+
+    """
     if mode == "text":
         return clean_text(text, syn_dict)
     else:
@@ -50,11 +89,62 @@ def class_cleaning(word, class_dict):
     u"""类别统一
 
     比如：“600570”、“600571”替换为“股票”；“感冒”、“咳嗽”替换为“疾病”
+
+    Parameters
+    ----------
+    word : str
+        待转换的词
+    class_dict : {str : set}
+        类的词典
+
+    Returns
+    -------
+    str
+
     """
     return clean_word(word, class_dict, mode="set")
 
 
 def load_rule_pick_dict(file):
+    u"""加载pick词典
+
+    Parameters
+    ----------
+    file : str
+        配置文件路径
+
+    Returns
+    -------
+    dict
+
+        例子：
+        {
+            'index': {
+                '卖出': [0],
+                '到账': [0],
+                '签约': [1],
+                '否定': [1],
+                '成功': [1],
+                '银行卡': [2],
+                '解绑': [2]
+            },
+            'data': [
+                [
+                    ['卖出', '到账'],
+                    ['弘钱包', '弘运宝', '金额', '时间', '份额', '确认', '否定']
+                ],
+                [
+                    ['签约', '否定', '成功'],
+                    []
+                ],
+                [
+                    ['银行卡', '解绑'],
+                    ['否定']
+                ]
+            ]
+        }
+
+    """
     lines = load_data(file)
 
     if not lines:
@@ -87,7 +177,42 @@ def load_rule_pick_dict(file):
 
 
 def load_rule_dict(file):
-    u"""加载多词匹配"""
+    u"""加载规则词典
+
+    Parameters
+    ----------
+    file : str
+        配置文件路径
+
+    Returns
+    -------
+    dict
+
+        例子：
+        {
+            'index': {
+                '余额宝': [0, 1],
+                '升级': [0],
+                '明细': [1]
+            },
+            'index_notin': {},
+            'data': [
+                [
+                    ['余额宝', '升级'],
+                    ['余额宝', '升级', '余额宝', '升级', '余额宝', '升级',
+                        '余额宝', '升级'],
+                    []
+                ],
+                [
+                    ['余额宝', '明细'],
+                    ['余额宝', '明细', '余额宝', '明细', '余额宝', '明细',
+                        '余额宝', '明细'],
+                    []
+                ]
+            ]
+        }
+
+    """
     lines = load_data(file)
 
     if not lines:
@@ -129,6 +254,20 @@ def load_rule_dict(file):
 
 
 def rule_every_cleaning(tokens, rule_dict):
+    u"""every
+
+    Parameters
+    ----------
+    tokens : list
+        分词
+    rule_dict : dict
+        转换词典
+
+    Returns
+    -------
+    list
+
+    """
     if rule_dict is None:
         return tokens
 
@@ -211,8 +350,23 @@ def _rule_some_cleaning(tokens, rule_dict, mode="all", count=0):
 
 
 def rule_pick_cleaning(tokens, rule_dict):
-    u"""
+    u"""pick
+
+    Parameters
+    ----------
+    tokens : list
+        分词
+    rule_dict : dict
+        转换词典
+
+    Returns
+    -------
+    list
+
+    Notes
+    -----
     依次处理，词典要注意顺序，需要词多优先匹配的排在前面
+
     """
     if rule_dict is None:
         return tokens
@@ -247,6 +401,20 @@ def rule_pick_cleaning(tokens, rule_dict):
 
 
 def rule_some_cleaning(tokens, rule_dict):
+    u"""some
+
+    Parameters
+    ----------
+    tokens : list
+        分词
+    rule_dict : dict
+        转换词典
+
+    Returns
+    -------
+    list
+
+    """
     if rule_dict is None:
         return tokens
 
@@ -254,6 +422,20 @@ def rule_some_cleaning(tokens, rule_dict):
 
 
 def rule_extend_cleaning(tokens, rule_dict):
+    u"""extend
+
+    Parameters
+    ----------
+    tokens : list
+        分词
+    rule_dict : dict
+        转换词典
+
+    Returns
+    -------
+    list
+
+    """
     if rule_dict is None:
         return tokens
 

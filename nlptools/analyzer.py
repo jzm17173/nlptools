@@ -28,7 +28,14 @@ _rule_types = [
 
 
 class FreqDist(Counter):
-    u"""词频分布"""
+    u"""词频分布
+
+    Parameters
+    ----------
+    samples : list
+        待统计词频的词列表
+
+    """
 
     def __init__(self, samples):
         Counter.__init__(self, samples)
@@ -76,10 +83,15 @@ class FreqDist(Counter):
 def diff(dest, src, case_sensitive=False):
     u"""源文件在目标文件中有的和没有的
 
-    Args:
-        dest: 目标文件
-        src: 源文件
-        case_sensitive: 是否区分大小写
+    Parameters
+    ----------
+    dest : {str, list}
+        目标文件
+    src : str
+        源文件
+    case_sensitive : {True, False}, optional, default=False
+        是否区分大小写
+
     """
     if not isinstance(dest, list):
         dest = [dest]
@@ -157,31 +169,41 @@ def _every(sentence, rules):
 def context_exists(sentence, context):
     u"""上下文判断
 
-    context
+    Parameters
+    ----------
+    sentence : str
+        句子
+    context : str
+        上下文
 
-    "召开方式&^只能选择|表决方式&^只能选择|相结合&^只能选择"
+        "召开方式&^只能选择|表决方式&^只能选择|相结合&^只能选择"
 
-    | 或
-    & 并
-    ^ 非
-    B 开头
-    E 结尾
+        | 或
+        & 并
+        ^ 非
+        B 开头
+        E 结尾
 
-    第一层都是|
-    第二层都是&
+        第一层都是|
+        第二层都是&
 
-    解析过程：
-    [
-        "召开方式&^只能选择",
-        "表决方式&^只能选择",
-        "相结合&^只能选择"
-    ]
+        解析过程：
+        [
+            "召开方式&^只能选择",
+            "表决方式&^只能选择",
+            "相结合&^只能选择"
+        ]
 
-    [
-        ["召开方式", "^只能选择"],
-        ["表决方式", "^只能选择"],
-        ["相结合", "^只能选择"]
-    ]
+        [
+            ["召开方式", "^只能选择"],
+            ["表决方式", "^只能选择"],
+            ["相结合", "^只能选择"]
+        ]
+
+    Returns
+    -------
+    bool
+
     """
     if context == "":
         return True
@@ -196,7 +218,20 @@ def context_exists(sentence, context):
 
 
 def search(sentences, contexts, max_size=None, result_file=None):
-    u"""搜索"""
+    u"""搜索
+
+    Parameters
+    ----------
+    sentences : {str, list}
+        句子列表或者文件
+    contexts : {str, list}
+        上下文列表或者文件
+    max_size : {int, None}, optional, default=None
+        最多问题数
+    result_file : {str, None}, optional, default=None
+        结果文件路径
+
+    """
     if isinstance(sentences, str):
         sentences = load_data(sentences)
 
@@ -223,6 +258,20 @@ def search(sentences, contexts, max_size=None, result_file=None):
 
 
 def discovery_new_words(file, old_words, max_size=None, result_path=None):
+    u"""发现新词
+
+    Parameters
+    ----------
+    file : str
+        文件路径
+    old_words : set
+        常用词，已在字典里的词
+    max_size : {int, None}, optional, default=None
+        最多问题数
+    result_path : {str, None}, optional, default=None
+        结果文件目录
+
+    """
     sentences = load_data(file)
 
     words = []
