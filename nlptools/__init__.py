@@ -41,6 +41,8 @@ from .number import normalize_num
 from .number import pad_num
 from .number import grouping
 
+from .string import bytelen
+
 from .utils import load_data
 from .utils import load_dict
 from .utils import load_syn_dict
