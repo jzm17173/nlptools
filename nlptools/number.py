@@ -1,5 +1,7 @@
 # -*- coding:utf-8 -*-
 
+import math
+
 
 def pad_num(num, digits):
     u"""补0
@@ -84,3 +86,57 @@ def normalize_num(value):
     value = _remove_num_comma(value)
     value = _remove_num_tail_zero(value)
     return value
+
+
+def grouping(nums, min_len=3, max_diff=2, skip=True):
+    u"""分组
+
+    Parameters
+    ----------
+    nums : list
+        值列表
+    min_len : int, optional, default=3
+        分组最小长度
+    max_diff : int, optional, default=2
+        最大允许的差值
+    skip : bool, optional, default=True
+        是否可以跳过1个差值不符合的
+
+    Returns
+    -------
+    list
+
+    """
+    new_nums = []
+    grouped_nums = []
+
+    for i in range(len(nums)):
+        if i not in grouped_nums:
+            temp = []
+            num1 = nums[i]
+
+            right_nums = nums[i:]
+            right_nums_len = len(right_nums)
+            right_nums_penult_i = right_nums_len - 2
+
+            for j in range(right_nums_len):
+                num2 = right_nums[j]
+                diff1 = math.fabs(num1 - num2)
+
+                if j < right_nums_penult_i:
+                    diff2 = math.fabs(num1 - right_nums[j + 1])
+                else:
+                    diff2 = 999
+
+                if diff1 <= max_diff or (skip and diff2 <= max_diff):
+                    temp.append(i + j)
+                else:
+                    break
+
+            if len(temp) > min_len:
+                grouped_nums.extend(temp)
+                new_nums.append(temp)
+            else:
+                new_nums.append(i)
+
+    return new_nums
