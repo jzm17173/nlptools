@@ -106,11 +106,11 @@ def grouping(nums, min_len=3, min_num=None, max_diff=2, skip=True):
     -------
     list
     """
-    new_nums = []
-    grouped_nums = []
+    indexes = []
+    grouped_indexes = []
 
     for i in range(len(nums)):
-        if i not in grouped_nums:
+        if i not in grouped_indexes:
             temp = []
             num1 = nums[i]
 
@@ -127,15 +127,15 @@ def grouping(nums, min_len=3, min_num=None, max_diff=2, skip=True):
                 else:
                     diff2 = 999
 
-                if (min_num is None or num1 > min_num) and (diff1 <= max_diff or (skip and diff2 <= max_diff)):
+                if (min_num is None or num1 >= min_num) and (diff1 <= max_diff or (skip and diff2 <= max_diff)):
                     temp.append(i + j)
                 else:
                     break
 
-            if len(temp) > min_len:
-                grouped_nums.extend(temp)
-                new_nums.append(temp)
+            if len(temp) >= min_len:
+                grouped_indexes.extend(temp)
+                indexes.append(temp)
             else:
-                new_nums.append(i)
+                indexes.append(i)
 
-    return new_nums, grouped_nums
+    return indexes, grouped_indexes
