@@ -138,4 +138,4 @@ def grouping(nums, min_len=3, min_num=None, max_diff=2, skip=True):
             else:
                 indexes.append(i)
 
-    return indexes, grouped_indexes
+    return indexes
