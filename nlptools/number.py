@@ -88,24 +88,23 @@ def normalize_num(value):
     return value
 
 
-def grouping(nums, min_len=3, max_diff=2, skip=True):
+def grouping(nums, min_len=3, min_num=None, max_diff=2, skip=True):
     u"""分组
-
     Parameters
     ----------
     nums : list
         值列表
     min_len : int, optional, default=3
         分组最小长度
+    min_num : int, optional, default=None
+        最小的值
     max_diff : int, optional, default=2
         最大允许的差值
     skip : bool, optional, default=True
         是否可以跳过1个差值不符合的
-
     Returns
     -------
     list
-
     """
     new_nums = []
     grouped_nums = []
@@ -128,7 +127,7 @@ def grouping(nums, min_len=3, max_diff=2, skip=True):
                 else:
                     diff2 = 999
 
-                if diff1 <= max_diff or (skip and diff2 <= max_diff):
+                if (min_num is None or num1 > min_num) and (diff1 <= max_diff or (skip and diff2 <= max_diff)):
                     temp.append(i + j)
                 else:
                     break
@@ -139,4 +138,4 @@ def grouping(nums, min_len=3, max_diff=2, skip=True):
             else:
                 new_nums.append(i)
 
-    return new_nums
+    return new_nums, grouped_nums
