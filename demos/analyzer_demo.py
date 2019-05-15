@@ -8,7 +8,7 @@ import nlptools
 
 def demo_freq_dist():
     dist = nlptools.FreqDist("abcdeabcdabcaba")
-    print(dist)  # FreqDist({'a': 5, 'b': 4, 'c': 3, 'd': 2, 'e': 1})
+    print(dist )  # FreqDist({'a': 5, 'b': 4, 'c': 3, 'd': 2, 'e': 1})
 
     print(dist.keys())  # dict_keys(['a', 'b', 'c', 'd', 'e'])
 
