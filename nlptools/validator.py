@@ -251,9 +251,9 @@ def verify_page(page, row, extend=None, message_format={}):
         }
 
     Returns
+    -------
     {str, None}
 
-    -------
     """
     rules = [
         {

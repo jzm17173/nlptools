@@ -3,7 +3,6 @@
 import sys
 sys.path.insert(0, "../")
 
-
 from nlptools import read_file
 from nlptools import full2half
 from nlptools import start_time

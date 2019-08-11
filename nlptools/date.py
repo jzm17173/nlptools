@@ -60,6 +60,7 @@ def datetime2string(dt, format=_DEFAULT_FORMAT):
     Returns
     -------
     str
+
     """
     return dt.strftime(format)
 
@@ -72,7 +73,8 @@ def string2datetime(value, format=_DEFAULT_FORMAT):
     value : str
     format : str, optional, default=_DEFAULT_FORMAT
 
-    Returns:
+    Returns
+    -------
     datetime.datetime
 
     """

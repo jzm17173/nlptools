@@ -21,11 +21,6 @@ def read_file(file, encoding="utf-8"):
     -------
     {str, None}
 
-
-    Notes
-    -----
-    如果 mode="rb"，read 后再解码成字符串，会带有 "\r"，linux 读取也是，文件的关系
-
     """
     if Path(file).is_file():
         with open(file, mode="r", encoding=encoding) as f:
@@ -118,6 +113,7 @@ def rmdir(path):
     Notes
     -----
     os.rmdir 删除空目录
+
     """
     if Path(path).is_dir():
         shutil.rmtree(path)

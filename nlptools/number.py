@@ -93,6 +93,7 @@ def normalize_num(value):
 
 def grouping(nums, min_len=3, min_num=None, max_diff=2, skip=True):
     u"""分组
+
     Parameters
     ----------
     nums : list
@@ -105,9 +106,11 @@ def grouping(nums, min_len=3, min_num=None, max_diff=2, skip=True):
         最大允许的差值
     skip : bool, optional, default=True
         是否可以跳过1个差值不符合的
+
     Returns
     -------
     list
+
     """
     indexes = []
     grouped_indexes = []
