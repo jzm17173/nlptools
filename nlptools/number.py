@@ -83,9 +83,12 @@ def normalize_num(value):
     str
 
     """
+    percent = "%" if "%" in value else ""
+    value = value.strip("%")
+
     value = _remove_num_comma(value)
     value = _remove_num_tail_zero(value)
-    return value
+    return "{}{}".format(value, percent)
 
 
 def grouping(nums, min_len=3, min_num=None, max_diff=2, skip=True):

@@ -20,6 +20,7 @@ class TestNumber(unittest.TestCase):
         self.assertEqual(normalize_num("100,000,000"), "100000000")
         self.assertEqual(normalize_num("100.000"), "100")
         self.assertEqual(normalize_num("100.1000"), "100.1")
+        self.assertEqual(normalize_num("10.0%"), "10%")
 
     def test_grouping(self):
         nums = [3, 47, 47, 47, 46, 21, 59, 59, 10, 59, 20]

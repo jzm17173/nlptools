@@ -1,6 +1,8 @@
 # -*- encoding=utf-8 -*-
 u"""不采用基础词典+用户扩展词典的方式，完全用户传入，调用包的时候不用总是等待"""
 
+import re
+
 from .utils import load_data
 from .utils import clean_text
 from .utils import clean_word
@@ -13,6 +15,7 @@ _MAPS = {
     "zh-hans": zh2hans
 }
 
+rs_parentheses = "\([\w\W]+?\)"
 
 """
 import os
@@ -440,3 +443,16 @@ def rule_extend_cleaning(tokens, rule_dict):
         return tokens
 
     return _rule_some_cleaning(tokens, rule_dict, mode="one")
+
+
+def remove_space(text):
+    u"""移除空格"""
+    return text.replace(" ", "")
+
+
+def remove_parentheses(text):
+    u"""移除圆括号"""
+    if isinstance(text, list):
+        return [re.sub(rs_parentheses, "", item) for item in text]
+    else:
+        return re.sub(rs_parentheses, "", text)

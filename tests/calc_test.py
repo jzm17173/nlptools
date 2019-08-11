@@ -32,6 +32,8 @@ class TestCalc(unittest.TestCase):
         num3 = 1.21
         self.assertNotEqual(num1 * num2, num3)
         self.assertEqual(num_multi(num1, num2), str(num3))
+        self.assertNotEqual(num_multi("0.013", 100), "1.300")
+        self.assertEqual(num_multi("0.013", 100), "1.3")
 
     def test_num_div(self):
         num1 = 1.21

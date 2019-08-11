@@ -3,6 +3,8 @@ u"""计算"""
 
 from decimal import Decimal
 
+from .number import normalize_num
+
 
 def num_add(num1, num2):
     u"""相加
@@ -58,7 +60,7 @@ def num_multi(num1, num2):
     str
 
     """
-    return str(Decimal(str(num1)) * Decimal(str(num2)))
+    return normalize_num(str(Decimal(str(num1)) * Decimal(str(num2))))
 
 
 def num_div(num1, num2):
