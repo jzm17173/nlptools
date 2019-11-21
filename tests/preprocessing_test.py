@@ -15,6 +15,7 @@ from nlptools import rule_some_cleaning
 from nlptools import rule_pick_cleaning
 from nlptools import rule_extend_cleaning
 from nlptools import zhconvert
+from nlptools import remove_unnecessary_space
 
 class_dict = load_syn_dict("dict/class.txt", mode="set")
 
@@ -77,3 +78,10 @@ class TestPreprocessing(unittest.TestCase):
         # print(rule_pick_cleaning(["卖出", "到账", "我"], pick_dict))
         self.assertTrue(
             len(rule_pick_cleaning(["卖出", "到账", "我"], pick_dict)) == 2)
+
+    def test_remove_unnecessary_space(self):
+        self.assertEqual(remove_unnecessary_space(" 你 好 "), "你好")
+        self.assertEqual(remove_unnecessary_space("how are you"), "how are you")
+        self.assertEqual(remove_unnecessary_space("   "), "")
+        self.assertEqual(remove_unnecessary_space("你好"), "你好")
+        self.assertEqual(remove_unnecessary_space("zhi fu bao 升 级 "), "zhi fu bao升级")

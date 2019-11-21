@@ -9,6 +9,7 @@ from .utils import clean_word
 from .analyzer import FreqDist
 from .lang import zh2hans
 from .lang import half2width
+from .validator import only_letters_and_numbers
 
 
 _MAPS = {
@@ -448,6 +449,22 @@ def rule_extend_cleaning(tokens, rule_dict):
 def remove_space(text):
     u"""移除空格"""
     return text.replace(" ", "")
+
+
+def remove_unnecessary_space(text):
+    u"""移除非必须的空格"""
+    text = text.strip()
+    text = re.sub("\s{2,}", " ", text)
+    splited_text = text.split(" ")
+    l = len(splited_text)
+    last_i = l - 1
+    for i in range(l):
+        current_text = splited_text[i]
+        if i < last_i:
+            next_text = splited_text[i+1]
+            if only_letters_and_numbers("{}{}".format(current_text[-1], next_text[0])):
+                splited_text[i] = "{} ".format(current_text)
+    return "".join(splited_text)
 
 
 def remove_parentheses(text):

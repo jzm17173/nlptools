@@ -110,17 +110,16 @@ def diff(dest, src, case_sensitive=False):
 
     src_data = [item.strip() for item in src_data if item.strip() != ""]
     dest_data = [item.strip() for item in dest_data if item.strip() != ""]
-
-    if not case_sensitive:
-        src_data = [item.lower() for item in src_data]
-        dest_data = [item.lower() for item in dest_data]
-
-    dest_data = set(dest_data)
+    dest_data_lowercase = [item.lower() for item in dest_data]
+    dest_data_set = set(dest_data_lowercase) if not case_sensitive else set(dest_data)
 
     contains_data = []
     notcontains_data = []
     for item in src_data:
-        if item in dest_data:
+        if not case_sensitive:
+            item = item.lower()
+
+        if item in dest_data_set:
             contains_data.append(item)
         else:
             notcontains_data.append(item)

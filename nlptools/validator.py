@@ -8,6 +8,7 @@ _re_float = re.compile("^(\-?\d+)(\.\d+)?$")
 _re_email = re.compile(
     "^([A-Z0-9]+[_|\_|\.]?)*[A-Z0-9]+@([A-Z0-9]+[_|\_|\.]?)*[A-Z0-9]+\.[A-Z]{2,3}$",
     re.I)
+_re_letter_number = re.compile("^[\dA-Z]+$", re.I)
 
 _message_format = {
     "required": "{}不能为空",
@@ -81,6 +82,14 @@ def is_email(value):
 
     """
     if _re_email.match(str(value)):
+        return True
+    else:
+        return False
+
+
+def only_letters_and_numbers(value):
+    u"""只包含字母、数字"""
+    if _re_letter_number.match(value):
         return True
     else:
         return False

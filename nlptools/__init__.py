@@ -1,4 +1,4 @@
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 from .fs import read_file
 from .fs import write_file
@@ -24,6 +24,7 @@ from .validator import is_float
 from .validator import is_email
 from .validator import verify
 from .validator import verify_page
+from .validator import only_letters_and_numbers
 
 from .http import serialize
 from .http import get
@@ -72,6 +73,7 @@ from .preprocessing import rule_some_cleaning
 from .preprocessing import rule_pick_cleaning
 from .preprocessing import rule_extend_cleaning
 from .preprocessing import remove_space
+from .preprocessing import remove_unnecessary_space
 from .preprocessing import remove_parentheses
 
 # 修复
