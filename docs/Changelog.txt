@@ -1,4 +1,4 @@
-2019-11-10: version 0.1.1
+2019-11-10: version 1.1.0
 1. 修复全角字符中的大写字母被换成了小写
 2. diff不改变文本的大小写
 3. 增加remove_unnecessary_space（移除非必须的空格）、only_letters_and_numbers（只包含字母数字）
