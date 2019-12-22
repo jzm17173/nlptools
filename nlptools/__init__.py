@@ -9,7 +9,9 @@ from .fs import rmdir
 from .fs import rmfile
 from .fs import file_tail
 from .fs import file_uniq
+from .fs import scan
 from .fs import concat_file
+from .fs import split_file
 
 from .date import now
 from .date import timestamp

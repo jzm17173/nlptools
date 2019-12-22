@@ -2,6 +2,7 @@
 u"""文件、目录操作"""
 
 import os
+import math
 import json
 import shutil
 from pathlib import Path
@@ -186,6 +187,30 @@ def file_uniq(file, tail="_uniq"):
     return repeated_data
 
 
+def scan(path):
+    u"""找到目录下所有文件
+
+    Parameters
+    ----------
+    path : str
+        目录
+
+    Returns
+    -------
+    list
+
+    """
+    files = []
+    names = os.listdir(path)
+    for name in names:
+        sub_path = "{}/{}".format(path, name)
+        if os.path.isdir(sub_path):
+            files.extend(scan(sub_path))
+        elif os.path.isfile(sub_path):
+            files.append(sub_path)
+    return files
+
+
 def concat_file(dest, src):
     u"""合并文件
 
@@ -207,3 +232,26 @@ def concat_file(dest, src):
             texts.append(text)
 
     write_file(dest, "\n".join(texts))
+
+
+def split_file(dest, src, num):
+    u"""拆分文件
+
+    Parameters
+    ----------
+    dest : str
+        存放拆分后文件的目录
+    src : str
+        待拆分的文件
+    num : int
+        个数
+
+    """
+    text = read_file(src)
+    lines = text.split("\n")
+    l = math.ceil(len(lines) / num)
+    mkdir(dest)
+    for i in range(num):
+        write_file(
+            "{}/{}_{}.txt".format(dest, num, i+1),
+            "\n".join(lines[i*l:i*l+l]))
