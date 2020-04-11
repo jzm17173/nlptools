@@ -164,7 +164,7 @@ class ArticleCrawler(Crawler):
             pages = os.listdir(self.data_path)
 
         for page in pages:
-            page = page.split(".")[0]
+            #page = page.split(".")[0]
             file = "{}/{}.json".format(self.data_path, page)
             if Path(file).is_file():
                 files.append(file)
