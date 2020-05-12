@@ -60,5 +60,5 @@ class GuangdongCrawler(ArticleCrawler):
 
 
 crawler1 = GuangdongCrawler(timeout=10, data_path="guangdong")
-crawler1.get_list_data(1, 2)
-crawler1.get_content_data(1, 2)
+crawler1.get_list_data(1, 10)
+crawler1.get_content_data(1, 10)
