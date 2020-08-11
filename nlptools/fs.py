@@ -37,7 +37,7 @@ def write_file(file, text, encoding="utf-8"):
     ----------
     file : str
         文件路径
-    text : str
+    text : {str, list}
         写入文本
     encoding : {"utf-8", ...}, optional, default="utf-8"
         文件编码
@@ -47,6 +47,9 @@ def write_file(file, text, encoding="utf-8"):
     utf-8 写 csv 文件，excel 打开中文乱码，encoding 改用 utf_8_sig
 
     """
+    if isinstance(text, list):
+        text = "\n".join(text)
+
     with open(file, mode="w", encoding=encoding) as f:
         f.write(text)
 
@@ -175,24 +178,26 @@ def file_uniq(file, tail="_uniq"):
     data = read_file(file).split("\n")
 
     unique_data = []
-    repeated_data = []
+    added_data = set()
+    repeated_data = set()
 
     for item in data:
-        if item not in unique_data:
+        if item not in added_data:
             unique_data.append(item)
+            added_data.add(item)
         else:
-            repeated_data.append(item)
+            repeated_data.add(item)
 
     write_file(file_tail(file, tail), "\n".join(unique_data))
     return repeated_data
 
 
-def scan(path):
+def scan(root):
     u"""找到目录下所有文件
 
     Parameters
     ----------
-    path : str
+    root : str
         目录
 
     Returns
@@ -201,9 +206,9 @@ def scan(path):
 
     """
     files = []
-    names = os.listdir(path)
+    names = os.listdir(root)
     for name in names:
-        sub_path = "{}/{}".format(path, name)
+        sub_path = "{}/{}".format(root, name)
         if os.path.isdir(sub_path):
             files.extend(scan(sub_path))
         elif os.path.isfile(sub_path):
