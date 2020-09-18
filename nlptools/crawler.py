@@ -17,8 +17,10 @@ class Crawler(object):
     ----------
     timeout : int, optional, default=3
         请求超时时间
+
     timesleep : int, optional, default=3
         请求间隔时间
+
     data_path : str, optional, default="data"
         数据存放路径
 
@@ -50,6 +52,7 @@ class Crawler(object):
         ----------
         root_elem : bs4.BeautifulSoup
             根元素
+
         tag_name : str
             标签名称
 
@@ -70,20 +73,28 @@ class ArticleCrawler(Crawler):
     ----------
     timeout : int, optional, default=3
         请求超时时间
+
     timesleep : int, optional, default=3
         请求间隔时间
+
     data_path : str, optional, default="data"
         数据存放路径
+
     list_method : {"GET", "POST"}, optional, default="GET"
         请求列表的method
+
     list_headers : dict, optional, default={}
         请求列表的headers
+
     list_data_type : {"json", None}, optional, default=None
         请求列表的返回数据类型
+
     content_method : {"GET", "POST"}, optional, default="GET"
         请求内容的method
+
     content_headers : dict, optional, default={}
         请求内容的headers
+
     content_data_type : {"json", None}, optional, default=None
         请求内容的返回数据类型
 

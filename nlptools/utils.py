@@ -37,15 +37,13 @@ def load_dict(file, mode="list"):
     ----------
     file : str
         文件路径
+
     mode : {"list", "set"}, optional, default="list"
         类型
 
     Returns
     -------
     {list, set}
-
-        ["啊", "呀"]
-        {"啊", "呀"}
 
     """
     words = load_data(file)
@@ -63,12 +61,13 @@ def load_syn_dict(file, mode="list"):
     ----------
     file : str
         文件路径
+
     mode : {"list", "set"}, optional, default="list"
         类型
 
     Returns
     -------
-    {[[str]], {str : set}}
+    {[[str]], {str: set}}
 
     """
     lines = load_data(file)
@@ -97,7 +96,8 @@ def clean_text(text, word_dict):
     ----------
     text : str
         待替换的文本
-    word_dict : list
+
+    word_dict : [[str]]
         词典
 
     Returns
@@ -120,8 +120,10 @@ def clean_word(word, word_dict, mode="list"):
     ----------
     word : str
         待替换的词
-    word_dict : {list, dict}
+
+    word_dict : {[[str]], {str: set}}
         词典
+
     mode : {"list", "set"}, optional, default="list"
         类型
 

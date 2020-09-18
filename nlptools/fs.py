@@ -15,6 +15,7 @@ def read_file(file, encoding="utf-8"):
     ----------
     file : str
         文件路径
+
     encoding : {"utf-8", ...}, optional, default="utf-8"
         文件编码
 
@@ -37,8 +38,10 @@ def write_file(file, text, encoding="utf-8"):
     ----------
     file : str
         文件路径
+
     text : {str, list}
         写入文本
+
     encoding : {"utf-8", ...}, optional, default="utf-8"
         文件编码
 
@@ -61,6 +64,7 @@ def read_json(file, encoding="utf-8"):
     ----------
     file : str
         文件路径
+
     encoding : {"utf-8", ...}, optional, default="utf-8"
         文件编码
 
@@ -83,8 +87,10 @@ def write_json(file, obj, encoding="utf-8"):
     ----------
     file : str
         文件路径
+
     obj : json
         json数据
+
     encoding : {"utf-8", ...}, optional, default="utf-8"
         文件编码
 
@@ -143,6 +149,7 @@ def file_tail(file, tail="_"):
     ----------
     file : str
         文件路径
+
     tail : str, optional, default="_"
         文件名末尾要添加的字符
 
@@ -162,6 +169,7 @@ def file_uniq(file, tail="_uniq"):
     ----------
     file : str
         文件路径
+
     tail : str, optional, default="_uniq"
         文件名末尾要添加的字符
 
@@ -223,6 +231,7 @@ def concat_file(dest, src):
     ----------
     dest : str
         生成文件的路径
+
     src : {str, list}
         需要合并的文件列表或者父目录
 
@@ -246,8 +255,10 @@ def split_file(dest, src, num):
     ----------
     dest : str
         存放拆分后文件的目录
+
     src : str
         待拆分的文件
+
     num : int
         个数
 

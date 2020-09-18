@@ -55,6 +55,7 @@ def datetime2string(dt, format=_DEFAULT_FORMAT):
     Parameters
     ----------
     dt : datetime.datetime
+
     format : str, optional, default=_DEFAULT_FORMAT
 
     Returns
@@ -71,6 +72,7 @@ def string2datetime(value, format=_DEFAULT_FORMAT):
     Parameters
     ----------
     value : str
+
     format : str, optional, default=_DEFAULT_FORMAT
 
     Returns
@@ -87,9 +89,13 @@ def datetime_add(value, format=_DEFAULT_FORMAT, days=0, hours=0, minutes=0):
     Parameters
     ----------
     value : str
+
     format : str, optional, default=_DEFAULT_FORMAT
+
     days : int, optional, default=0
+
     hours : int, optional, default=0
+
     minutes : int, optional, default=0
 
     Returns

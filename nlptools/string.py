@@ -10,6 +10,7 @@ def bytelen(target, fix=2):
     ----------
     target : str
         字符串
+
     fix : int, optional, default=2
         双字节字符的长度
 

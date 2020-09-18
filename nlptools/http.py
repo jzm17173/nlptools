@@ -56,10 +56,13 @@ def get(
     ----------
     url : str
         请求地址
+
     data : dict, optional, default=None
         请求提交数据
+
     headers : dict, optional, default={}
         请求头部
+
     timeout : int, optional, default=socket._GLOBAL_DEFAULT_TIMEOUT
         请求超时
 
@@ -96,12 +99,16 @@ def post(
     ----------
     url : str
         请求地址
+
     data : dict, optional, default=None
         请求提交数据
+
     json : dict, optional, default=None
         请求提交数据，数据以json形式提交
+
     headers : dict, optional, default={}
         请求头部
+
     timeout : int, optional, default=socket._GLOBAL_DEFAULT_TIMEOUT
         请求超时
 
@@ -156,16 +163,22 @@ def fetch(
     ----------
     url : str
         请求地址
+
     data : dict, optional, default=None
         请求提交数据
+
     json : dict, optional, default=None
         请求提交数据，数据以json形式提交
+
     headers : dict, optional, default={}
         请求头部
+
     timeout : int, optional, default=socket._GLOBAL_DEFAULT_TIMEOUT
         请求超时
+
     method : {"GET", "POST"}, optional, default="GET"
         请求方法
+
     data_type : {"json", None}, optional, default=None
         请求数据的类型
 

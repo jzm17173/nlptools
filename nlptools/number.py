@@ -98,12 +98,16 @@ def grouping(nums, min_len=3, min_num=None, max_diff=2, skip=True):
     ----------
     nums : list
         值列表
+
     min_len : int, optional, default=3
         分组最小长度
+
     min_num : int, optional, default=None
         最小的值
+
     max_diff : int, optional, default=2
         最大允许的差值
+
     skip : bool, optional, default=True
         是否可以跳过1个差值不符合的
 

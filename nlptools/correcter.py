@@ -16,6 +16,7 @@ def typos_cleaning(text, typos_dict):
     ----------
     text : str
         文本
+
     typos_dict : [[str]]
         错别字字典
 

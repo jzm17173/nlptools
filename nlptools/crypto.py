@@ -15,8 +15,10 @@ def _pad(text, block_size, padding=_DEFAULT_PADDING):
     ----------
     text : str
         待填充的文本
+
     block_size : int
         填充的最小单位
+
     padding : str, optional, default="\0"
         填充的文本
 
@@ -35,6 +37,7 @@ def _unpad(text, padding=_DEFAULT_PADDING):
     ----------
     text : str
         待移除填充的文本
+
     padding : str, optional, default="\0"
         填充的文本
 
@@ -53,13 +56,19 @@ class AESCrypto(object):
     ----------
     key : bytes
         密钥
+
     iv : bytes
         初始向量
+
+    Attributes
+    ----------
+    mode : AES.MODE_CBC
+        加密模式
 
     """
     def __init__(self, key, iv):
         self.key = key
-        self.mode = AES.MODE_CBC  # 加密模式
+        self.mode = AES.MODE_CBC
         self.iv = iv
 
     def encrypt(self, text):

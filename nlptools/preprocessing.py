@@ -50,6 +50,7 @@ def zhconvert(string, to_encoding="zh-hans"):
     ----------
     string : str
         待转换的文本
+
     to_encoding : {"zh-hans"}, optional, default="zh-hans"
         转换类型
 
@@ -73,8 +74,10 @@ def syn_cleaning(text, syn_dict, mode="text"):
     ----------
     text : str
         待转换的文本
+
     syn_dict : [[str]]
         同义词词典
+
     mode : {"text", "word"}, optional, default="text"
         转换类型
 
@@ -98,7 +101,8 @@ def class_cleaning(word, class_dict):
     ----------
     word : str
         待转换的词
-    class_dict : {str : set}
+
+    class_dict : {str: set}
         类的词典
 
     Returns
@@ -121,7 +125,6 @@ def load_rule_pick_dict(file):
     -------
     dict
 
-        例子：
         {
             'index': {
                 '卖出': [0],
@@ -192,7 +195,6 @@ def load_rule_dict(file):
     -------
     dict
 
-        例子：
         {
             'index': {
                 '余额宝': [0, 1],
@@ -264,6 +266,7 @@ def rule_every_cleaning(tokens, rule_dict):
     ----------
     tokens : list
         分词
+
     rule_dict : dict
         转换词典
 
@@ -360,6 +363,7 @@ def rule_pick_cleaning(tokens, rule_dict):
     ----------
     tokens : list
         分词
+
     rule_dict : dict
         转换词典
 
@@ -411,6 +415,7 @@ def rule_some_cleaning(tokens, rule_dict):
     ----------
     tokens : list
         分词
+
     rule_dict : dict
         转换词典
 
@@ -432,6 +437,7 @@ def rule_extend_cleaning(tokens, rule_dict):
     ----------
     tokens : list
         分词
+
     rule_dict : dict
         转换词典
 
@@ -447,12 +453,32 @@ def rule_extend_cleaning(tokens, rule_dict):
 
 
 def remove_space(text):
-    u"""移除空格"""
+    u"""移除空格
+
+    Parameters
+    ----------
+    text : str
+
+    Returns
+    -------
+    str
+    
+    """
     return text.replace(" ", "")
 
 
 def remove_unnecessary_space(text):
-    u"""移除非必须的空格"""
+    u"""移除非必须的空格
+
+    Parameters
+    ----------
+    text : str
+
+    Returns
+    -------
+    str
+
+    """
     text = text.strip()
     text = re.sub("\s{2,}", " ", text)
     splited_text = text.split(" ")
@@ -468,7 +494,17 @@ def remove_unnecessary_space(text):
 
 
 def remove_parentheses(text):
-    u"""移除圆括号"""
+    u"""移除圆括号
+
+    Parameters
+    ----------
+    text : {str, list}
+
+    Returns
+    -------
+    {str, list}
+
+    """
     if isinstance(text, list):
         return [re.sub(rs_parentheses, "", item) for item in text]
     else:

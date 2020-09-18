@@ -35,8 +35,11 @@ class FreqDist(Counter):
     samples : list
         待统计词频的词列表
 
-    """
+    Attributes
+    ----------
+    _N : {None, int}
 
+    """
     def __init__(self, samples):
         Counter.__init__(self, samples)
 
@@ -87,8 +90,10 @@ def diff(dest, src, case_sensitive=False):
     ----------
     dest : {str, list}
         目标文件
+
     src : str
         源文件
+
     case_sensitive : {True, False}, optional, default=False
         是否区分大小写
 
@@ -172,6 +177,7 @@ def context_exists(sentence, context):
     ----------
     sentence : str
         句子
+
     context : str
         上下文
 
@@ -223,10 +229,13 @@ def search(sentences, contexts, max_size=None, result_file=None):
     ----------
     sentences : {str, list}
         句子列表或者文件
+
     contexts : {str, list}
         上下文列表或者文件
+
     max_size : {int, None}, optional, default=None
         最多问题数
+
     result_file : {str, None}, optional, default=None
         结果文件路径
 
@@ -263,10 +272,13 @@ def discovery_new_words(file, old_words, max_size=None, result_path=None):
     ----------
     file : str
         文件路径
+
     old_words : set
         常用词，已在字典里的词
+
     max_size : {int, None}, optional, default=None
         最多问题数
+
     result_path : {str, None}, optional, default=None
         结果文件目录
 
