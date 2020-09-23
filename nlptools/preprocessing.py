@@ -16,7 +16,7 @@ _MAPS = {
     "zh-hans": zh2hans
 }
 
-rs_parentheses = "\([\w\W]+?\)"
+_PARENTHESES_RS = "\([\w\W]+?\)"
 
 """
 import os
@@ -506,6 +506,6 @@ def remove_parentheses(text):
 
     """
     if isinstance(text, list):
-        return [re.sub(rs_parentheses, "", item) for item in text]
+        return [re.sub(_PARENTHESES_RS, "", item) for item in text]
     else:
-        return re.sub(rs_parentheses, "", text)
+        return re.sub(_PARENTHESES_RS, "", text)

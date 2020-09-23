@@ -3,14 +3,14 @@
 import re
 
 
-_re_int = re.compile("^\-?\d+$")
-_re_float = re.compile("^(\-?\d+)(\.\d+)?$")
-_re_email = re.compile(
+_INT_RE = re.compile("^\-?\d+$")
+_FLOAT_RE = re.compile("^(\-?\d+)(\.\d+)?$")
+_EMAIL_RE = re.compile(
     "^([A-Z0-9]+[_|\_|\.]?)*[A-Z0-9]+@([A-Z0-9]+[_|\_|\.]?)*[A-Z0-9]+\.[A-Z]{2,3}$",
     re.I)
-_re_letter_number = re.compile("^[\dA-Z]+$", re.I)
+_LETTER_NUMBER_RE = re.compile("^[\dA-Z]+$", re.I)
 
-DEFAULT_MESSAGE_FORMAT = {
+_DEFAULT_MESSAGE_FORMAT = {
     "required": "{}不能为空",
     "valid_email": "{}格式错误",
     "min_length": "{}长度不能小于{}",
@@ -43,7 +43,7 @@ def is_int(value):
     str.isdigit() 是否只由数字组成，“-”、“.”也不包括
 
     """
-    if _re_int.match(str(value)):
+    if _INT_RE.match(str(value)):
         return True
     else:
         return False
@@ -62,7 +62,7 @@ def is_float(value):
     bool
 
     """
-    if _re_float.match(str(value)):
+    if _FLOAT_RE.match(str(value)):
         return True
     else:
         return False
@@ -81,7 +81,7 @@ def is_email(value):
     bool
 
     """
-    if _re_email.match(str(value)):
+    if _EMAIL_RE.match(str(value)):
         return True
     else:
         return False
@@ -100,7 +100,7 @@ def only_letters_and_numbers(value):
     bool
 
     """
-    if _re_letter_number.match(value):
+    if _LETTER_NUMBER_RE.match(value):
         return True
     else:
         return False
@@ -211,7 +211,7 @@ def verify(rules, message_format={}):
             if rule_name in message_format:
                 msg_format = message_format[rule_name]
             else:
-                msg_format = DEFAULT_MESSAGE_FORMAT[rule_name]
+                msg_format = _DEFAULT_MESSAGE_FORMAT[rule_name]
 
             if msg_format.count("{}") == 2:
                 return msg_format.format(name, rule_value)

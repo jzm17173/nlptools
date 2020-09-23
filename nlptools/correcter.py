@@ -6,7 +6,7 @@ import re
 from .utils import clean_text
 
 
-_re_wrong_stock = re.compile("^[\do]{6}$")
+_WRONG_STOCK_RE = re.compile("^[\do]{6}$")
 
 
 def typos_cleaning(text, typos_dict):
@@ -41,7 +41,7 @@ def stock_cleaning(word):
     str
 
     """
-    if _re_wrong_stock.match(word):
+    if _WRONG_STOCK_RE.match(word):
         word = word.replace("o", "0")
 
     return word

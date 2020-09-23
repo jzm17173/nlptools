@@ -18,7 +18,7 @@ _rule_dict = {
     "equal": lambda x, y: x == y
 }
 
-_rule_types = [
+_RULE_TYPES = [
     "greater_than_or_equal",
     "greater_than",
     "less_than_or_equal",
@@ -64,7 +64,7 @@ class FreqDist(Counter):
         return [item for item in self if self[item] == 1]
 
     def filter(self, rule="greater_than_or_equal[1]"):
-        rule_type = _rule_types[0]
+        rule_type = _RULE_TYPES[0]
         rule_value = 1
 
         if rule.find("[") != -1:
@@ -72,7 +72,7 @@ class FreqDist(Counter):
             if rule_value.isdigit():
                 rule_value = int(rule_value)
 
-        for item in _rule_types:
+        for item in _RULE_TYPES:
             if rule.find(item) != -1:
                 rule_type = item
                 break
