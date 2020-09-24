@@ -14,17 +14,17 @@ def _get_module_path(path):
                             os.path.dirname(__file__), path))
 
 
-class_dict = nlptools.load_syn_dict(_get_module_path("files/class.txt"), mode="set")
-every_dict = nlptools.load_rule_dict(_get_module_path("files/every.txt"))
-some_dict = nlptools.load_rule_dict(_get_module_path("files/some.txt"))
-extend_dict = nlptools.load_rule_dict(_get_module_path("files/extend.txt"))
-pick_dict = nlptools.load_rule_pick_dict(_get_module_path("files/pick.txt"))
+_CLASS_DICT = nlptools.load_syn_dict(_get_module_path("files/class.txt"), mode="set")
+_EVERY_DICT = nlptools.load_rule_dict(_get_module_path("files/every.txt"))
+_SOME_DICT = nlptools.load_rule_dict(_get_module_path("files/some.txt"))
+_EXTEND_DICT = nlptools.load_rule_dict(_get_module_path("files/extend.txt"))
+_PICK_DICT = nlptools.load_rule_pick_dict(_get_module_path("files/pick.txt"))
 
 
 class TestPreprocessing(unittest.TestCase):
     def test_class_cleaning(self):
-        self.assertEqual(nlptools.class_cleaning("纳威司达", class_dict), "美股")
-        self.assertEqual(nlptools.class_cleaning("平安银行", class_dict), "银行")
+        self.assertEqual(nlptools.class_cleaning("纳威司达", _CLASS_DICT), "美股")
+        self.assertEqual(nlptools.class_cleaning("平安银行", _CLASS_DICT), "银行")
 
     def test_full2half(self):
         self.assertEqual(
@@ -52,28 +52,28 @@ class TestPreprocessing(unittest.TestCase):
             nlptools.zhconvert(string2), string1)
 
     def test_rule_every_cleaning(self):
-        # print(nlptools.rule_every_cleaning(["拿出"], every_dict))
+        # print(nlptools.rule_every_cleaning(["拿出"], _EVERY_DICT))
         self.assertEqual(
-            "".join(nlptools.rule_every_cleaning(["拿出"], every_dict)),
+            "".join(nlptools.rule_every_cleaning(["拿出"], _EVERY_DICT)),
             "卖出")
 
     def test_rule_some_cleaning(self):
-        # print(nlptools.rule_some_cleaning(["银行", "卡"], some_dict))
+        # print(nlptools.rule_some_cleaning(["银行", "卡"], _SOME_DICT))
         self.assertEqual(
-            "".join(nlptools.rule_some_cleaning(["银行", "卡"], some_dict)),
+            "".join(nlptools.rule_some_cleaning(["银行", "卡"], _SOME_DICT)),
             "银行卡")
 
     def test_rule_extend_cleaning(self):
-        # print(nlptools.rule_extend_cleaning(["余额宝", "升级"], extend_dict))
+        # print(nlptools.rule_extend_cleaning(["余额宝", "升级"], _EXTEND_DICT))
         self.assertEqual(
-            "".join(nlptools.rule_extend_cleaning(["余额宝", "升级"], extend_dict)),
+            "".join(nlptools.rule_extend_cleaning(["余额宝", "升级"], _EXTEND_DICT)),
             "余额宝升级余额宝升级余额宝升级余额宝升级")
 
     def test_rule_pick_cleaning(self):
         # set无序了
-        # print(nlptools.rule_pick_cleaning(["卖出", "到账", "我"], pick_dict))
+        # print(nlptools.rule_pick_cleaning(["卖出", "到账", "我"], _PICK_DICT))
         self.assertTrue(
-            len(nlptools.rule_pick_cleaning(["卖出", "到账", "我"], pick_dict)) == 2)
+            len(nlptools.rule_pick_cleaning(["卖出", "到账", "我"], _PICK_DICT)) == 2)
 
     def test_remove_unnecessary_space(self):
         self.assertEqual(nlptools.remove_unnecessary_space(" 你 好 "), "你好")

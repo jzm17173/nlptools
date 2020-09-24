@@ -30,7 +30,7 @@ class TestCalc(unittest.TestCase):
         FILE_NUM = 6
         TEST_NUM = 8
         files = nlptools.scan(_get_module_path('../tests'))
-        self.assertEqual(len([file for file in files if "test_" in file]), TEST_NUM)
+        self.assertEqual(len([file for file in files if "test_" in file and file.endswith(".py")]), TEST_NUM)
         self.assertEqual(len([file for file in files if ".txt" in file]), FILE_NUM)
 
 

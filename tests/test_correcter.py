@@ -14,14 +14,14 @@ def _get_module_path(path):
                             os.path.dirname(__file__), path))
 
 
-typos_raw_file = _get_module_path("files/typos_raw.txt")
-typos_raw_dict = nlptools.load_syn_dict(typos_raw_file)
+_TYPOS_RAW_FILE = _get_module_path("files/typos_raw.txt")
+_TYPOS_RAW_DICT = nlptools.load_syn_dict(_TYPOS_RAW_FILE)
 
 
 class TestCorrecter(unittest.TestCase):
     def test_typos_cleaning(self):
         self.assertEqual(
-            nlptools.typos_cleaning("可然冰是什么", typos_raw_dict), "可燃冰是什么")
+            nlptools.typos_cleaning("可然冰是什么", _TYPOS_RAW_DICT), "可燃冰是什么")
 
     def test_stock_cleaning(self):
         self.assertEqual(nlptools.stock_cleaning("6oo57o"), "600570")
