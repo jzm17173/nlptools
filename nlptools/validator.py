@@ -106,7 +106,7 @@ def only_letters_and_numbers(value):
         return False
 
 
-def verify(rules, message_format={}):
+def check(rules, message_format={}):
     u"""验证
 
     Parameters
@@ -221,7 +221,7 @@ def verify(rules, message_format={}):
     return None
 
 
-def verify_page(page, row, extend=None, message_format={}):
+def check_page(page, row, extend=None, message_format={}):
     u"""验证分页
 
     Parameters
@@ -303,4 +303,4 @@ def verify_page(page, row, extend=None, message_format={}):
     if extend is not None:
         rules += extend
 
-    return verify(rules, message_format)
+    return check(rules, message_format)

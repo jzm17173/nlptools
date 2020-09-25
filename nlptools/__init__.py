@@ -24,8 +24,8 @@ from .date import get_delta
 from .validator import is_int
 from .validator import is_float
 from .validator import is_email
-from .validator import verify
-from .validator import verify_page
+from .validator import check
+from .validator import check_page
 from .validator import only_letters_and_numbers
 
 from .http import serialize

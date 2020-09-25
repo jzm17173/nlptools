@@ -29,8 +29,8 @@ class TestValidator(unittest.TestCase):
         self.assertTrue(nlptools.is_email("123456@qq.com"))
         self.assertFalse(nlptools.is_email("123456qq.com"))
 
-    def test_verify(self):
-        self.assertTrue(nlptools.verify([
+    def test_check(self):
+        self.assertTrue(nlptools.check([
             {
                 "name": "nickname",
                 "rule": "required",
@@ -38,7 +38,7 @@ class TestValidator(unittest.TestCase):
             }
         ]), "{}不能为空".format("nickname"))
 
-        self.assertTrue(nlptools.verify([
+        self.assertTrue(nlptools.check([
             {
                 "name": "nickname",
                 "rule": "required",
@@ -48,7 +48,7 @@ class TestValidator(unittest.TestCase):
             "required": "{}是必须的",
         }), "{}是必须的".format("nickname"))
 
-        self.assertEqual(nlptools.verify([
+        self.assertEqual(nlptools.check([
             {
                 "name": "nickname",
                 "rule": "required",
@@ -56,7 +56,7 @@ class TestValidator(unittest.TestCase):
             }
         ]), None)
 
-        self.assertEqual(nlptools.verify([
+        self.assertEqual(nlptools.check([
             {
                 "name": "email",
                 "rule": "valid_email",
@@ -64,7 +64,7 @@ class TestValidator(unittest.TestCase):
             }
         ]), None)
 
-        self.assertEqual(nlptools.verify([
+        self.assertEqual(nlptools.check([
             {
                 "name": "email",
                 "rule": "valid_email",
@@ -72,8 +72,8 @@ class TestValidator(unittest.TestCase):
             }
         ]), "{}格式错误".format("email"))
 
-    def test_verify_page(self):
-        self.assertEqual(nlptools.verify_page(-1, 100), "{}不能小于等于{}".format("page", 0))
+    def test_check_page(self):
+        self.assertEqual(nlptools.check_page(-1, 100), "{}不能小于等于{}".format("page", 0))
 
 
 if __name__ == '__main__':
